@@ -313,6 +313,32 @@ font-size:15px
 .product-gallery{gap:7px}
 .product-gallery img{border-radius:12px}
 }
+  .logo{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  overflow:hidden;
+  flex-shrink:0;
+  border:2px solid #ff6500;
+  background:#000;
+}
+
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}.capa{
+  width:100%;
+  overflow:hidden;
+  border-bottom:1px solid #292929;
+}
+
+.capa img{
+  width:100%;
+  height:auto;
+  display:block;
+}
 </style>
 </head>
 
@@ -320,17 +346,8 @@ font-size:15px
 
 <header class="top">
 
-<div style="
-width:52px;
-height:52px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#ff6500;
-font-size:25px;
-">
-📱
+<div class="logo">
+  <img src="file_000000007394820eb2baa8eef6027eab.png" alt="Alpha Cell Assistência">
 </div>
 
 <div class="brand">
@@ -339,7 +356,9 @@ font-size:25px;
 </div>
 
 </header>
-
+<section class="capa">
+  <img src="file_0000000050c4820e8eda68fd06086ecc.png" alt="Alpha Cell Assistência">
+</section>
 <main class="wrap">
 
 <section class="hero">
