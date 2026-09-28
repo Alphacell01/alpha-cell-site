@@ -38,7 +38,14 @@ textarea{min-height:90px;resize:vertical}
 footer{border-top:1px solid #292929;margin-top:30px;padding:20px 0;color:#aaa;font-size:13px}
 @media(max-width:650px){.videoGrid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.heroText h1{font-size:23px}}
 @media(max-width:420px){.cards{grid-template-columns:1fr}.ctas{grid-template-columns:1fr}}
-
+.product-card{background:#121212;border:1px solid #292929;border-radius:14px;padding:16px}
+.product-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.product-gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block}
+.product-info{padding-top:14px}
+.product-info h3{margin:0 0 8px;font-size:20px}
+.product-info p{margin:6px 0;color:#c8c8c8}
+.product-info .btn{display:block;margin-top:12px}
+@media(max-width:420px){.product-gallery{grid-template-columns:1fr 1fr}}
 .videoGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .videoCard{background:#111;border:1px solid #292929;border-radius:16px;overflow:hidden;box-shadow:0 0 20px #ff650012}
 .videoCard video{display:block;width:100%;aspect-ratio:16/9;background:#000;object-fit:cover}
@@ -78,7 +85,27 @@ footer{border-top:1px solid #292929;margin-top:30px;padding:20px 0;color:#aaa;fo
       <div class="card">🎧 <strong>Acessórios</strong><span class="muted">Itens para seu celular</span></div>
     </div>
   </section>
+<section class="section">
+  <h2>📱 Xiaomi Redmi 15C</h2>
 
+  <div class="product-card">
+    <div class="product-gallery">
+      <img src="aa4061667487424592217fca700790f3.jpg" alt="Xiaomi Redmi 15C preto com caixa">
+      <img src="2b30be011f7d73273168ee2ae85576cb.jpg" alt="Xiaomi Redmi 15C azul e preto">
+      <img src="e0d58c158f120cae611af8bde03b9b0f.jpg" alt="Xiaomi Redmi 15C azul">
+      <img src="e8f77ce3641c844303c5c3e73eb308ab.jpg" alt="Xiaomi Redmi 15C com acessórios">
+    </div>
+
+    <div class="product-info">
+      <h3>Xiaomi Redmi 15C</h3>
+      <p>📱 4GB RAM • 128GB de armazenamento</p>
+      <p>📦 Novo e lacrado</p>
+      <a class="btn orange" href="https://wa.me/5518991399827?text=Olá!%20Tenho%20interesse%20no%20Xiaomi%20Redmi%2015C" target="_blank">
+        💬 Tenho interesse
+      </a>
+    </div>
+  </div>
+</section>
 
   <section class="section">
     <h2>🎬 Conheça a Alpha Cell</h2>
