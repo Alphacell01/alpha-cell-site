@@ -840,20 +840,217 @@ function alphaOpenCart() {
     return sum + item.price * item.quantity;
   }, 0);
 
-  alert(
-    "🛒 Carrinho\n\n" +
-    "Xiaomi Redmi 15C\n" +
-    "Quantidade: " +
-    cart[0].quantity +
-    "\n\nTotal: R$ " +
-    total.toLocaleString("pt-BR", {
-      minimumFractionDigits: 2
-    })
-  );
+  const oldCheckout = document.getElementById("checkoutBox");
+  if (oldCheckout) {
+    oldCheckout.remove();
+  }
+
+  const checkout = document.createElement("div");
+  checkout.id = "checkoutBox";
+
+  checkout.innerHTML = `
+    <div style="
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.75);
+      z-index:9999;
+      overflow-y:auto;
+      padding:20px;
+    ">
+
+      <div style="
+        max-width:500px;
+        margin:20px auto;
+        background:#181818;
+        border:1px solid #353535;
+        border-radius:18px;
+        padding:20px;
+        color:#fff;
+      ">
+
+        <h2 style="margin-top:0;">
+          🛒 Finalizar compra
+        </h2>
+
+        <p style="color:#bbb;">
+          Preencha seus dados para continuar.
+        </p>
+
+        <h3>👤 Dados do cliente</h3>
+
+        <label>Nome completo</label>
+        <input
+          id="checkoutNome"
+          type="text"
+          placeholder="Digite seu nome completo"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <label>CPF</label>
+        <input
+          id="checkoutCpf"
+          type="text"
+          placeholder="000.000.000-00"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <label>WhatsApp / Telefone</label>
+        <input
+          id="checkoutTelefone"
+          type="tel"
+          placeholder="(18) 99999-9999"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <label>E-mail</label>
+        <input
+          id="checkoutEmail"
+          type="email"
+          placeholder="seuemail@email.com"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <h3>📍 Endereço de entrega</h3>
+
+        <label>CEP</label>
+        <input
+          id="checkoutCep"
+          type="text"
+          placeholder="00000-000"
+          maxlength="9"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <label>Endereço</label>
+        <input
+          id="checkoutEndereco"
+          type="text"
+          placeholder="Será preenchido pelo CEP"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <label>Número</label>
+        <input
+          id="checkoutNumero"
+          type="text"
+          placeholder="Número"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <label>Complemento</label>
+        <input
+          id="checkoutComplemento"
+          type="text"
+          placeholder="Apartamento, casa, etc. (opcional)"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <label>Bairro</label>
+        <input
+          id="checkoutBairro"
+          type="text"
+          placeholder="Será preenchido pelo CEP"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <label>Cidade</label>
+        <input
+          id="checkoutCidade"
+          type="text"
+          placeholder="Será preenchida pelo CEP"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <label>Estado</label>
+        <input
+          id="checkoutEstado"
+          type="text"
+          placeholder="Será preenchido pelo CEP"
+          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
+        >
+
+        <div style="
+          background:#222;
+          padding:14px;
+          border-radius:12px;
+          margin:15px 0;
+        ">
+          <strong>Total do pedido:</strong><br>
+          <span style="font-size:22px;">
+            R$ ${total.toLocaleString("pt-BR", {
+              minimumFractionDigits: 2
+            })}
+          </span>
+        </div>
+
+        <button
+          type="button"
+          onclick="alert('Dados preenchidos! Na próxima etapa vamos ativar o preenchimento automático pelo CEP e depois conectar ao pagamento.')"
+          style="
+            width:100%;
+            padding:14px;
+            border:0;
+            border-radius:12px;
+            background:#b86f5d;
+            color:#fff;
+            font-size:16px;
+            font-weight:bold;
+            margin-top:5px;
+          "
+        >
+          Continuar para pagamento
+        </button>
+
+        <button
+          type="button"
+          onclick="document.getElementById('checkoutBox').remove()"
+          style="
+            width:100%;
+            padding:12px;
+            border:1px solid #555;
+            border-radius:12px;
+            background:#222;
+            color:#fff;
+            font-size:15px;
+            margin-top:10px;
+          "
+        >
+          Voltar
+        </button>
+
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(checkout);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  alphaUpdateCartCount();
+document.getElementById("checkoutCep").addEventListener("blur", async function() {
+    const cep = this.value.replace(/\D/g, "");
+
+    if (cep.length !== 8) {
+        return;
+    }
+
+    try {
+        const resposta = await fetch("https://viacep.com.br/ws/" + cep + "/json/");
+        const dados = await resposta.json();
+
+        if (dados.erro) {
+            alert("CEP não encontrado.");
+            return;
+        }
+
+        document.getElementById("checkoutEndereco").value = dados.logradouro || "";
+        document.getElementById("checkoutBairro").value = dados.bairro || "";
+        document.getElementById("checkoutCidade").value = dados.localidade || "";
+        document.getElementById("checkoutEstado").value = dados.uf || "";
+
+    } catch (erro) {
+        alert("Não foi possível consultar o CEP. Verifique sua conexão.");
+    }
+});  alphaUpdateCartCount();
 });
 </script>
 </body>
