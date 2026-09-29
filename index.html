@@ -40,7 +40,33 @@ max-width:1050px;
 margin:auto;
 padding:18px
 }
+.cart-top{
+display:flex;
+align-items:center;
+gap:8px;
+background:#ff6500;
+color:#fff;
+border:0;
+border-radius:12px;
+padding:10px 14px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
 
+.cart-count{
+display:flex;
+align-items:center;
+justify-content:center;
+min-width:22px;
+height:22px;
+padding:0 6px;
+background:#111;
+color:#fff;
+border-radius:50px;
+font-size:12px;
+font-weight:bold;
+}
 .hero{
 overflow:hidden;
 border-radius:22px;
@@ -354,7 +380,10 @@ font-size:15px
 <b>Alpha Cell Assistência</b>
 <span>Seu celular em boas mãos!</span>
 </div>
-
+<button class="cart-top" type="button" onclick="alphaOpenCart()">
+🛒 Carrinho
+<span id="cartCount" class="cart-count">0</span>
+</button>
 </header>
 <section class="capa">
   <img src="file_0000000050c4820e8eda68fd06086ecc.png" alt="Alpha Cell Assistência">
@@ -500,19 +529,24 @@ alt="Xiaomi Redmi 15C com acessórios">
 </div>
 
 </div>
+<div class="product-actions">
 
-<a
-class="btn orange"
-href="https://wa.me/5518991913982?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Xiaomi%20Redmi%2015C"
-target="_blank">
-💬 Tenho interesse
-</a>
 <a
 class="btn orange"
 href="https://mpago.la/2MBtBWm"
 target="_blank">
-🛒 Comprar agora
+⚡ Comprar agora
 </a>
+
+<button
+class="btn orange"
+type="button"
+onclick="alphaAddCart()">
+🛒 Adicionar ao carrinho
+</button>
+
+</div>
+
 </div>
 
 </div>
