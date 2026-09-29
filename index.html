@@ -755,6 +755,86 @@ window.open(
 }
 
 </script>
+<script>
+const ALPHA_CART_KEY = "alphaCellCart";
 
+function alphaGetCart() {
+  try {
+    return JSON.parse(localStorage.getItem(ALPHA_CART_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function alphaSaveCart(cart) {
+  localStorage.setItem(ALPHA_CART_KEY, JSON.stringify(cart));
+}
+
+function alphaUpdateCartCount() {
+  const cart = alphaGetCart();
+
+  const total = cart.reduce(function(sum, item) {
+    return sum + (item.quantity || 0);
+  }, 0);
+
+  const count = document.getElementById("cartCount");
+
+  if (count) {
+    count.textContent = total;
+  }
+}
+
+function alphaAddCart() {
+  const cart = alphaGetCart();
+
+  const produto = cart.find(function(item) {
+    return item.id === "redmi-15c";
+  });
+
+  if (produto) {
+    produto.quantity += 1;
+  } else {
+    cart.push({
+      id: "redmi-15c",
+      name: "Xiaomi Redmi 15C",
+      price: 1249.99,
+      quantity: 1
+    });
+  }
+
+  alphaSaveCart(cart);
+  alphaUpdateCartCount();
+
+  alert("🛒 Redmi 15C adicionado ao carrinho!");
+}
+
+function alphaOpenCart() {
+  const cart = alphaGetCart();
+
+  if (cart.length === 0) {
+    alert("🛒 Seu carrinho está vazio.");
+    return;
+  }
+
+  const total = cart.reduce(function(sum, item) {
+    return sum + item.price * item.quantity;
+  }, 0);
+
+  alert(
+    "🛒 Carrinho\n\n" +
+    "Xiaomi Redmi 15C\n" +
+    "Quantidade: " +
+    cart[0].quantity +
+    "\n\nTotal: R$ " +
+    total.toLocaleString("pt-BR", {
+      minimumFractionDigits: 2
+    })
+  );
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  alphaUpdateCartCount();
+});
+</script>
 </body>
 </html>
