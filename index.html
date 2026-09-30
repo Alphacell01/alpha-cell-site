@@ -1024,7 +1024,47 @@ function alphaOpenCart() {
 
   document.body.appendChild(checkout);
 }
+async function alphaComprarAgora() {
+  const botao = document.querySelector('.product-actions .btn.orange');
 
+  if (botao) {
+    botao.disabled = true;
+    botao.textContent = "⏳ Abrindo pagamento...";
+  }
+
+  try {
+    const resposta = await fetch(
+      "https://flat-sky-c66falpha-cell-pagamentos.alphacell012021.workers.dev/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title: "Xiaomi Redmi 15C",
+          unit_price: 1249.99,
+          quantity: 1
+        })
+      }
+    );
+
+    const dados = await resposta.json();
+
+    if (!resposta.ok || !dados.checkout_url) {
+      throw new Error("Não foi possível criar o pagamento.");
+    }
+
+    window.location.href = dados.checkout_url;
+
+  } catch (erro) {
+    alert("Não foi possível abrir o pagamento agora. Tente novamente.");
+
+    if (botao) {
+      botao.disabled = false;
+      botao.textContent = "⚡ Comprar agora";
+    }
+  }
+}
 document.addEventListener("DOMContentLoaded", function() {
 document.getElementById("checkoutCep").addEventListener("blur", async function() {
     const cep = this.value.replace(/\D/g, "");
