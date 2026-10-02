@@ -3,1096 +3,237 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ff6500">
-
+<meta name="theme-color" content="#b86f5d">
 <title>Alpha Cell Assistência</title>
-
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#070707;
-color:#fff;
-line-height:1.5
-}
-a{text-decoration:none;color:inherit}
-
-.top{
-position:sticky;
-top:0;
-z-index:20;
-display:flex;
-align-items:center;
-gap:12px;
-padding:12px 18px;
-background:rgba(7,7,7,.96);
-backdrop-filter:blur(12px);
-border-bottom:1px solid #292929
-}
-
-.brand b{display:block;font-size:19px}
-.brand span{color:#999;font-size:12px}
-
-.wrap{
-max-width:1050px;
-margin:auto;
-padding:18px
-}
-.cart-top{
-display:flex;
-align-items:center;
-gap:8px;
-background:#ff6500;
-color:#fff;
-border:0;
-border-radius:12px;
-padding:10px 14px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.cart-count{
-display:flex;
-align-items:center;
-justify-content:center;
-min-width:22px;
-height:22px;
-padding:0 6px;
-background:#111;
-color:#fff;
-border-radius:50px;
-font-size:12px;
-font-weight:bold;
-}
-.hero{
-overflow:hidden;
-border-radius:22px;
-border:1px solid #333;
-background:linear-gradient(145deg,#171717,#0d0d0d);
-box-shadow:0 15px 40px rgba(0,0,0,.4)
-}
-
-.heroText{padding:24px}
-
-.heroText h1{
-margin:0 0 8px;
-font-size:30px;
-letter-spacing:-.5px
-}
-
-.heroText p{
-margin:0;
-color:#bdbdbd
-}
-
-.ctas{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-margin:18px 0
-}
-
-.btn{
-display:flex;
-align-items:center;
-justify-content:center;
-min-height:50px;
-padding:14px 18px;
-border-radius:14px;
-font-weight:800;
-border:1px solid transparent;
-transition:.2s;
-cursor:pointer
-}
-
-.btn:hover{transform:translateY(-2px)}
-
-.orange{
-background:#ff6500;
-color:#111;
-box-shadow:0 8px 24px rgba(255,101,0,.2)
-}
-
-.dark{
-background:#151515;
-border-color:#363636
-}
-
-.section{margin:34px 0}
-
-.section h2{
-margin:0 0 14px;
-font-size:23px;
-letter-spacing:-.3px
-}
-
-.muted{
-color:#999;
-font-size:14px
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px
-}
-
-.card{
-padding:18px;
-border-radius:16px;
-background:linear-gradient(145deg,#171717,#101010);
-border:1px solid #303030;
-box-shadow:0 8px 22px rgba(0,0,0,.2)
-}
-
-.card strong{
-display:block;
-margin:7px 0 4px
-}
-
-.product-card{
-overflow:hidden;
-padding:12px;
-border-radius:22px;
-background:linear-gradient(145deg,#181818,#0e0e0e);
-border:1px solid #353535;
-box-shadow:0 15px 35px rgba(0,0,0,.35)
-}
-
-.product-gallery{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:9px
-}
-
-.product-gallery img{
-width:100%;
-aspect-ratio:1/1;
-object-fit:cover;
-display:block;
-border-radius:15px
-}
-
-.product-info{
-padding:20px 6px 6px
-}
-
-.offer-badge{
-display:inline-block;
-padding:7px 12px;
-margin-bottom:10px;
-border-radius:999px;
-background:#ff6500;
-color:#111;
-font-size:12px;
-font-weight:900;
-text-transform:uppercase
-}
-
-.product-info h3{
-margin:0 0 8px;
-font-size:26px
-}
-
-.product-info p{
-margin:7px 0;
-color:#ccc
-}
-
-.price-box{
-margin-top:16px;
-padding:16px;
-border-radius:15px;
-background:#090909;
-border:1px solid #303030
-}
-
-.price-old{
-color:#777;
-font-size:13px;
-text-decoration:line-through
-}
-
-.price-new{
-margin-top:3px;
-color:#ff7a1a;
-font-size:28px;
-font-weight:900
-}
-
-.product-info .btn{margin-top:16px}
-
-.videoGrid{
-display:grid;
-grid-template-columns:1fr;
-gap:14px
-}
-
-.videoCard{
-overflow:hidden;
-border-radius:18px;
-background:#111;
-border:1px solid #303030;
-box-shadow:0 10px 28px rgba(0,0,0,.3)
-}
-
-.videoCard video{
-display:block;
-width:100%;
-aspect-ratio:16/9;
-background:#000
-}
-
-.videoTitle{
-padding:14px;
-font-weight:800
-}
-
-.offer{
-padding:22px;
-border-radius:18px;
-background:linear-gradient(145deg,rgba(255,101,0,.12),#111);
-border:1px solid rgba(255,101,0,.4)
-}
-
-.timeline{
-display:flex;
-gap:10px;
-overflow:auto;
-padding-bottom:5px
-}
-
-.step{
-min-width:140px;
-padding:15px;
-border-radius:14px;
-background:#141414;
-border:1px solid #303030
-}
-
-.dot{
-color:#ff6500;
-font-size:20px
-}
-
-.form{
-padding:20px;
-border-radius:18px;
-background:#111;
-border:1px solid #303030;
-box-shadow:0 10px 30px rgba(0,0,0,.25)
-}
-
-label{
-display:block;
-margin:14px 0 6px;
-color:#bbb;
-font-size:13px
-}
-
-input,select,textarea{
-width:100%;
-padding:13px;
-border-radius:11px;
-border:1px solid #383838;
-background:#080808;
-color:#fff;
-outline:none
-}
-
-input:focus,select:focus,textarea:focus{
-border-color:#ff6500
-}
-
-textarea{
-min-height:100px;
-resize:vertical
-}
-
-footer{
-margin-top:40px;
-padding:24px 0;
-border-top:1px solid #292929;
-color:#999;
-font-size:13px
-}
-
-footer b{
-color:#fff;
-font-size:15px
-}
-
-@media(max-width:650px){
-.wrap{padding:14px}
-.heroText{padding:20px}
-.heroText h1{font-size:25px}
-.ctas{grid-template-columns:1fr}
-.cards{grid-template-columns:1fr 1fr}
-.product-info h3{font-size:23px}
-}
-
-@media(max-width:430px){
-.cards{grid-template-columns:1fr}
-.product-gallery{gap:7px}
-.product-gallery img{border-radius:12px}
-}
-  .logo{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  overflow:hidden;
-  flex-shrink:0;
-  border:2px solid #ff6500;
-  background:#000;
-}
-
-.logo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}.capa{
-  width:100%;
-  overflow:hidden;
-  border-bottom:1px solid #292929;
-}
-
-.capa img{
-  width:100%;
-  height:auto;
-  display:block;
-}.product-actions{
-  display:flex;
-  gap:10px;
-  width:100%;
-  margin-top:14px;
-}
-
-.product-actions .btn{
-  flex:1;
-  width:auto;
-  margin:0;
-  background:#b86f5d;
-  color:#fff;
-  border:none;
-  border-radius:12px;
-  padding:12px 10px;
-  text-align:center;
-}
-
-.product-actions .btn:hover{
-  background:#a96050;
-}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#070707;color:#fff;line-height:1.5}
+a{text-decoration:none;color:inherit}.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:12px 18px;background:rgba(7,7,7,.96);backdrop-filter:blur(12px);border-bottom:1px solid #292929}
+.brand b{display:block;font-size:19px}.brand span{color:#999;font-size:12px}.wrap{max-width:1050px;margin:auto;padding:18px}
+.cart-top{display:flex;align-items:center;gap:8px;background:#b86f5d;color:#fff;border:0;border-radius:12px;padding:10px 14px;font-size:16px;font-weight:bold;cursor:pointer;margin-left:auto}
+.cart-count{display:flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;background:#111;color:#fff;border-radius:50px;font-size:12px;font-weight:bold}
+.hero{overflow:hidden;border-radius:22px;border:1px solid #333;background:linear-gradient(145deg,#171717,#0d0d0d);box-shadow:0 15px 40px rgba(0,0,0,.4)}
+.heroText{padding:24px}.heroText h1{margin:0 0 8px;font-size:30px}.heroText p{margin:0;color:#bdbdbd}
+.ctas{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0}
+.btn{display:flex;align-items:center;justify-content:center;min-height:50px;padding:14px 18px;border-radius:14px;font-weight:800;border:1px solid transparent;transition:.2s;cursor:pointer}
+.btn:hover{transform:translateY(-2px)}.orange{background:#b86f5d;color:#fff}.dark{background:#151515;border-color:#363636}
+.section{margin:34px 0}.section h2{margin:0 0 14px;font-size:23px}.muted{color:#999;font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{padding:18px;border-radius:16px;background:linear-gradient(145deg,#171717,#101010);border:1px solid #303030}.card strong{display:block;margin:7px 0 4px}
+.logo{width:60px;height:60px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid #b86f5d;background:#000}.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.capa{width:100%;overflow:hidden;border-bottom:1px solid #292929}.capa img{width:100%;height:auto;display:block}
+.products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.shop-card{overflow:hidden;border-radius:20px;background:linear-gradient(145deg,#181818,#0e0e0e);border:1px solid #353535;box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.shop-main{width:100%;aspect-ratio:1/1;background:#fff;display:block;object-fit:contain;cursor:pointer}
+.shop-info{padding:16px}.shop-info h3{margin:0 0 7px;font-size:22px}.shop-info p{margin:5px 0;color:#ccc}
+.shop-price{font-size:25px;font-weight:900;color:#e7a08d;margin:10px 0}.color-label{font-size:13px;color:#aaa;margin-top:10px}.color-select{margin-top:5px}
+.shop-actions{display:flex;gap:8px;margin-top:12px}.shop-actions .btn{flex:1;min-height:46px;padding:11px 8px;border-radius:11px}.gallery-hint{font-size:12px;color:#999;margin-top:8px}
+.product-card{overflow:hidden;padding:12px;border-radius:22px;background:linear-gradient(145deg,#181818,#0e0e0e);border:1px solid #353535;box-shadow:0 15px 35px rgba(0,0,0,.35)}
+.product-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.product-gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;border-radius:15px}
+.product-info{padding:20px 6px 6px}.offer-badge{display:inline-block;padding:7px 12px;margin-bottom:10px;border-radius:999px;background:#b86f5d;color:#fff;font-size:12px;font-weight:900;text-transform:uppercase}
+.product-info h3{margin:0 0 8px;font-size:26px}.product-info p{margin:7px 0;color:#ccc}.price-box{margin-top:16px;padding:16px;border-radius:15px;background:#090909;border:1px solid #303030}
+.product-actions{display:flex;gap:10px;width:100%;margin-top:14px}.product-actions .btn{flex:1;background:#b86f5d;color:#fff;border:none;border-radius:12px;padding:12px 10px}
+.videoGrid{display:grid;grid-template-columns:1fr;gap:14px}.videoCard{overflow:hidden;border-radius:18px;background:#111;border:1px solid #303030}.videoCard video{display:block;width:100%;aspect-ratio:16/9;background:#000}.videoTitle{padding:14px;font-weight:800}
+.offer{padding:22px;border-radius:18px;background:linear-gradient(145deg,rgba(184,111,93,.12),#111);border:1px solid rgba(184,111,93,.4)}
+.timeline{display:flex;gap:10px;overflow:auto;padding-bottom:5px}.step{min-width:140px;padding:15px;border-radius:14px;background:#141414;border:1px solid #303030}.dot{color:#b86f5d;font-size:20px}
+.form{padding:20px;border-radius:18px;background:#111;border:1px solid #303030}.form label{display:block;margin:14px 0 6px;color:#bbb;font-size:13px}
+input,select,textarea{width:100%;padding:13px;border-radius:11px;border:1px solid #383838;background:#080808;color:#fff;outline:none}textarea{min-height:100px;resize:vertical}
+footer{margin-top:40px;padding:24px 0;border-top:1px solid #292929;color:#999;font-size:13px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:99999;overflow:auto;padding:18px}
+.modal-box{max-width:720px;margin:20px auto;background:#151515;border:1px solid #3a3a3a;border-radius:20px;padding:18px}.modal-close{float:right;background:#252525;color:#fff;border:1px solid #444;border-radius:10px;padding:8px 12px;cursor:pointer}
+.modal-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;clear:both;margin-top:15px}.modal-gallery img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#fff;border-radius:14px}
+@media(max-width:650px){.wrap{padding:14px}.heroText{padding:20px}.heroText h1{font-size:25px}.ctas{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.products-grid{grid-template-columns:1fr}}
+@media(max-width:430px){.cards{grid-template-columns:1fr}.shop-actions{flex-direction:column}}
 </style>
 </head>
-
 <body>
-
 <header class="top">
-
-<div class="logo">
-  <img src="file_000000007394820eb2baa8eef6027eab.png" alt="Alpha Cell Assistência">
-</div>
-
-<div class="brand">
-<b>Alpha Cell Assistência</b>
-<span>Seu celular em boas mãos!</span>
-</div>
-<button class="cart-top" type="button" onclick="alphaOpenCart()">
-🛒 Carrinho
-<span id="cartCount" class="cart-count">0</span>
-</button>
+<div class="logo"><img src="file_000000007394820eb2baa8eef6027eab.png" alt="Alpha Cell Assistência"></div>
+<div class="brand"><b>Alpha Cell Assistência</b><span>Seu celular em boas mãos!</span></div>
+<button class="cart-top" type="button" onclick="alphaOpenCart()">🛒 Carrinho <span id="cartCount" class="cart-count">0</span></button>
 </header>
-<section class="capa">
-  <img src="file_0000000050c4820e8eda68fd06086ecc.png" alt="Alpha Cell Assistência">
-</section>
+<section class="capa"><img src="file_0000000050c4820e8eda68fd06086ecc.png" alt="Alpha Cell Assistência"></section>
+
 <main class="wrap">
-
-<section class="hero">
-
-<div class="heroText">
-
-<h1>Seu celular em boas mãos.</h1>
-
-<p>
-Assistência técnica, acessórios, software,
-baterias e muito mais.
-</p>
-
-</div>
-
-</section>
+<section class="hero"><div class="heroText"><h1>Seu celular em boas mãos.</h1><p>Assistência técnica, acessórios, software, baterias e muito mais.</p></div></section>
 
 <div class="ctas">
-
-<a class="btn orange" href="#orcamento">
-📱 Solicitar orçamento
-</a>
-
-<a
-class="btn dark"
-href="https://wa.me/5518991913982?text=Ol%C3%A1%20Alpha%20Cell!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento."
-target="_blank">
-💬 Falar no WhatsApp
-</a>
-
-<a
-class="btn dark"
-href="https://www.google.com/maps/search/?api=1&query=Rua%20Euclides%20da%20Cunha%2029%20Luizi%C3%A2nia%20SP"
-target="_blank">
-📍 Como chegar
-</a>
-
-<a
-class="btn dark"
-href="https://www.instagram.com/alpha_cell_01/"
-target="_blank">
-📸 Instagram
-</a>
-
+<a class="btn orange" href="#orcamento">📱 Solicitar orçamento</a>
+<a class="btn dark" href="https://wa.me/5518991913982?text=Ol%C3%A1%20Alpha%20Cell!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank">💬 Falar no WhatsApp</a>
+<a class="btn dark" href="https://www.google.com/maps/search/?api=1&query=Rua%20Euclides%20da%20Cunha%2029%20Luizi%C3%A2nia%20SP" target="_blank">📍 Como chegar</a>
+<a class="btn dark" href="https://www.instagram.com/alpha_cell_01/" target="_blank">📸 Instagram</a>
 </div>
 
 <section class="section">
-
 <h2>🔧 Nossos serviços</h2>
-
 <div class="cards">
-
-<div class="card">
-📱
-<strong>Troca de telas</strong>
-<span class="muted">Displays e touch</span>
+<div class="card">📱<strong>Troca de telas</strong><span class="muted">Displays e touch</span></div>
+<div class="card">🔋<strong>Baterias</strong><span class="muted">Troca e diagnóstico</span></div>
+<div class="card">🔌<strong>Conector de carga</strong><span class="muted">Reparo e substituição</span></div>
+<div class="card">⚙️<strong>Software</strong><span class="muted">Configuração e correções</span></div>
+<div class="card">🔍<strong>Diagnóstico</strong><span class="muted">Avaliação do aparelho</span></div>
+<div class="card">🎧<strong>Acessórios</strong><span class="muted">Itens para seu celular</span></div>
 </div>
-
-<div class="card">
-🔋
-<strong>Baterias</strong>
-<span class="muted">Troca e diagnóstico</span>
-</div>
-
-<div class="card">
-🔌
-<strong>Conector de carga</strong>
-<span class="muted">Reparo e substituição</span>
-</div>
-
-<div class="card">
-⚙️
-<strong>Software</strong>
-<span class="muted">Configuração e correções</span>
-</div>
-
-<div class="card">
-🔍
-<strong>Diagnóstico</strong>
-<span class="muted">Avaliação do aparelho</span>
-</div>
-
-<div class="card">
-🎧
-<strong>Acessórios</strong>
-<span class="muted">Itens para seu celular</span>
-</div>
-
-</div>
-
 </section>
 
-<section class="section">
+<section class="section" id="produtos">
+<h2>📱 Smartphones</h2>
+<p class="muted">Escolha a cor, veja as fotos e adicione o aparelho ao carrinho.</p>
+<div class="products-grid">
 
-<h2>🔥 Oferta em destaque</h2>
-
-<div class="product-card">
-
-<div class="product-gallery">
-
-<img
-src="aa4061667487424592217fca700790f3.jpg"
-alt="Xiaomi Redmi 15C preto com caixa">
-
-<img
-src="2b30be011f7d73273168ee2ae85576cb.jpg"
-alt="Xiaomi Redmi 15C azul e preto">
-
-<img
-src="e0d58c158f120cae611af8bde03b9b0f.jpg"
-alt="Xiaomi Redmi 15C azul">
-
-<img
-src="e8f77ce3641c844303c5c3e73eb308ab.jpg"
-alt="Xiaomi Redmi 15C com acessórios">
-
+<article class="shop-card">
+<img class="shop-main" src="https://www.dasher.com.my/cdn/shop/files/POCO_C81_Pro_2.png?v=1780386108&width=1214" alt="Xiaomi POCO C81 Pro" onclick="alphaOpenProduct('poco-c81-pro')">
+<div class="shop-info">
+<h3>Xiaomi POCO C81 Pro</h3>
+<p>128 GB • 4 GB RAM • Dual SIM • Tela 6,9"</p>
+<div class="shop-price">R$ 1.350,00</div>
+<div class="color-label">Cor</div>
+<select class="color-select" id="color-poco-c81-pro">
+<option value="">Selecione a cor</option><option>Preto</option><option>Verde</option><option>Dourado</option>
+</select>
+<div class="gallery-hint">👆 Toque na foto para ver a galeria</div>
+<div class="shop-actions">
+<button class="btn orange" type="button" onclick="alphaAddProduct('poco-c81-pro','Xiaomi POCO C81 Pro',1350,'color-poco-c81-pro')">🛒 Carrinho</button>
+<button class="btn orange" type="button" onclick="alphaBuyProduct('poco-c81-pro','Xiaomi POCO C81 Pro',1350,'color-poco-c81-pro')">⚡ Comprar</button>
 </div>
-
-<div class="product-info">
-
-<span class="offer-badge">
-🔥 Oferta especial
-</span>
-
-<h3>Xiaomi Redmi 15C</h3>
-
-<p>
-📱 <b>4GB RAM</b> • <b>128GB</b> de armazenamento
-</p>
-
-<p>
-📦 Novo e lacrado
-</p>
-
-<div class="price-box">
-  <del>R$ 1.600,00</del>
-  <h2>R$ 1.249,99</h2>
-  <p>Preço promocional à vista</p>
 </div>
+</article>
 
+<article class="shop-card">
+<img class="shop-main" src="https://i02.appmifile.com/846_operator_sg/07/04/2025/1987d86786560de719f36f7d4d365db1.png" alt="Xiaomi POCO C71" onclick="alphaOpenProduct('poco-c71')">
+<div class="shop-info">
+<h3>Xiaomi POCO C71</h3>
+<p>128 GB • 4 GB RAM • Dual SIM • Tela 6,88"</p>
+<div class="shop-price">R$ 1.290,00</div>
+<div class="color-label">Cor</div>
+<select class="color-select" id="color-poco-c71">
+<option value="">Selecione a cor</option><option>Preto</option><option>Azul</option><option>Dourado</option>
+</select>
+<div class="gallery-hint">👆 Toque na foto para ver a galeria</div>
+<div class="shop-actions">
+<button class="btn orange" type="button" onclick="alphaAddProduct('poco-c71','Xiaomi POCO C71',1290,'color-poco-c71')">🛒 Carrinho</button>
+<button class="btn orange" type="button" onclick="alphaBuyProduct('poco-c71','Xiaomi POCO C71',1290,'color-poco-c71')">⚡ Comprar</button>
 </div>
-<div class="product-actions">
-
-<button
-class="btn orange"
-type="button"
-onclick="alphaComprarAgora()">
-⚡ Comprar agora
-</button>
-
-<button
-class="btn orange"
-type="button"
-onclick="alphaAddCart()">
-🛒 Adicionar ao carrinho
-</button>
-
 </div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2>🎬 Conheça a Alpha Cell</h2>
-
-<p class="muted">
-Confira nossos vídeos e veja um pouco do nosso trabalho.
-</p>
-
-<div class="videoGrid">
-
-<article class="videoCard">
-
-<video
-controls
-playsinline
-preload="metadata">
-
-<source
-src="1000062803.mp4"
-type="video/mp4">
-
-Seu navegador não suporta vídeos HTML5.
-
-</video>
-
-<div class="videoTitle">
-Alpha Cell Assistência
-</div>
-
 </article>
 
 </div>
-
-</section>
-
-<section class="section offer">
-
-<h2>🔥 Ofertas e novidades</h2>
-
-<p class="muted">
-Confira nossas promoções, acessórios,
-películas, capinhas, carregadores e serviços.
-</p>
-
-<a
-class="btn orange"
-href="https://www.instagram.com/alpha_cell_01/"
-target="_blank">
-📸 Ver novidades no Instagram
-</a>
-
 </section>
 
 <section class="section">
-
-<h2>📦 Acompanhar serviço</h2>
-
-<div class="timeline">
-
-<div class="step">
-<div class="dot">●</div>
-<b>Recebido</b>
-<div class="muted">Aparelho entregue</div>
+<h2>🔥 Oferta em destaque</h2>
+<div class="product-card">
+<div class="product-gallery">
+<img src="aa4061667487424592217fca700790f3.jpg" alt="Xiaomi Redmi 15C">
+<img src="2b30be011f7d73273168ee2ae85576cb.jpg" alt="Xiaomi Redmi 15C">
+<img src="e0d58c158f120cae611af8bde03b9b0f.jpg" alt="Xiaomi Redmi 15C">
+<img src="e8f77ce3641c844303c5c3e73eb308ab.jpg" alt="Xiaomi Redmi 15C">
 </div>
-
-<div class="step">
-<div class="dot">●</div>
-<b>Em análise</b>
-<div class="muted">Diagnóstico técnico</div>
+<div class="product-info">
+<span class="offer-badge">🔥 Oferta especial</span>
+<h3>Xiaomi Redmi 15C</h3>
+<p>📱 <b>4GB RAM</b> • <b>128GB</b> de armazenamento</p>
+<p>📦 Novo e lacrado</p>
+<div class="price-box"><del>R$ 1.600,00</del><h2>R$ 1.249,99</h2><p>Preço promocional à vista</p></div>
 </div>
-
-<div class="step">
-<div class="dot">●</div>
-<b>Aguardando peça</b>
-<div class="muted">Se necessário</div>
+<div class="product-actions">
+<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-15c','Xiaomi Redmi 15C',1249.99)">⚡ Comprar agora</button>
+<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-15c','Xiaomi Redmi 15C',1249.99)">🛒 Adicionar ao carrinho</button>
 </div>
-
-<div class="step">
-<div class="dot">●</div>
-<b>Em reparo</b>
-<div class="muted">Serviço em andamento</div>
 </div>
-
-<div class="step">
-<div class="dot">●</div>
-<b>Pronto</b>
-<div class="muted">Aguardando retirada</div>
-</div>
-
-</div>
-
 </section>
 
-<section
-class="section form"
-id="orcamento">
+<section class="section"><h2>🎬 Conheça a Alpha Cell</h2><p class="muted">Confira nossos vídeos e veja um pouco do nosso trabalho.</p>
+<div class="videoGrid"><article class="videoCard"><video controls playsinline preload="metadata"><source src="1000062803.mp4" type="video/mp4">Seu navegador não suporta vídeos HTML5.</video><div class="videoTitle">Alpha Cell Assistência</div></article></div></section>
 
-<h2>🛠️ Solicitar orçamento</h2>
+<section class="section offer"><h2>🔥 Ofertas e novidades</h2><p class="muted">Confira nossas promoções, acessórios, películas, capinhas, carregadores e serviços.</p>
+<a class="btn orange" href="https://www.instagram.com/alpha_cell_01/" target="_blank">📸 Ver novidades no Instagram</a></section>
 
-<label>Nome</label>
+<section class="section"><h2>📦 Acompanhar serviço</h2><div class="timeline">
+<div class="step"><div class="dot">●</div><b>Recebido</b><div class="muted">Aparelho entregue</div></div>
+<div class="step"><div class="dot">●</div><b>Em análise</b><div class="muted">Diagnóstico técnico</div></div>
+<div class="step"><div class="dot">●</div><b>Aguardando peça</b><div class="muted">Se necessário</div></div>
+<div class="step"><div class="dot">●</div><b>Em reparo</b><div class="muted">Serviço em andamento</div></div>
+<div class="step"><div class="dot">●</div><b>Pronto</b><div class="muted">Aguardando retirada</div></div>
+</div></section>
 
-<input
-id="nome"
-placeholder="Seu nome">
-
-<label>Modelo do aparelho</label>
-
-<input
-id="modelo"
-placeholder="Ex.: iPhone 13, Galaxy A15...">
-
-<label>Serviço</label>
-
-<select id="servico">
-
-<option>Troca de tela</option>
-<option>Troca de bateria</option>
-<option>Conector de carga</option>
-<option>Software</option>
-<option>Diagnóstico</option>
-<option>Outro reparo</option>
-
-</select>
-
-<label>
-Descreva o problema
-</label>
-
-<textarea
-id="problema"
-placeholder="Conte o que aconteceu com o aparelho..."></textarea>
-
-<button
-class="btn orange"
-style="width:100%;margin-top:18px"
-onclick="enviar()">
-
-💬 Enviar orçamento pelo WhatsApp
-
-</button>
-
+<section class="section form" id="orcamento"><h2>🛠️ Solicitar orçamento</h2>
+<label>Nome</label><input id="nome" placeholder="Seu nome">
+<label>Modelo do aparelho</label><input id="modelo" placeholder="Ex.: iPhone 13, Galaxy A15...">
+<label>Serviço</label><select id="servico"><option>Troca de tela</option><option>Troca de bateria</option><option>Conector de carga</option><option>Software</option><option>Diagnóstico</option><option>Outro reparo</option></select>
+<label>Descreva o problema</label><textarea id="problema" placeholder="Conte o que aconteceu com o aparelho..."></textarea>
+<button class="btn orange" style="width:100%;margin-top:18px" onclick="enviar()">💬 Enviar orçamento pelo WhatsApp</button>
 </section>
 
-<footer>
-
-<b>Alpha Cell Assistência</b>
-
-<br><br>
-
-📍 Rua Euclides da Cunha, 29 — Luiziânia-SP
-
-<br>
-
-📱 WhatsApp: (18) 99191-3982
-
-<br>
-
-📸 Instagram: @alpha_cell_01
-
-</footer>
-
+<footer><b>Alpha Cell Assistência</b><br><br>📍 Rua Euclides da Cunha, 29 — Luiziânia-SP<br>📱 WhatsApp: (18) 99191-3982<br>📸 Instagram: @alpha_cell_01</footer>
 </main>
 
 <script>
+const ALPHA_CART_KEY="alphaCellCart";
+const ALPHA_PRODUCTS={
+"poco-c81-pro":{
+name:"Xiaomi POCO C81 Pro",price:1350,
+images:[
+"https://www.dasher.com.my/cdn/shop/files/POCOC81Pro.png?v=1780384897&width=1214",
+"https://www.dasher.com.my/cdn/shop/files/POCO_C81_Pro_2.png?v=1780386108&width=1214",
+"https://www.dasher.com.my/cdn/shop/files/POCO_C81_Pro_3.png?v=1780386118&width=1214",
+"https://www.dasher.com.my/cdn/shop/files/POCO_C81_Pro_4.png?v=1780386133&width=1214",
+"https://www.dasher.com.my/cdn/shop/files/C81_Pro-06.png?v=1780384951&width=1214"
+]},
+"poco-c71":{
+name:"Xiaomi POCO C71",price:1290,
+images:[
+"https://i02.appmifile.com/846_operator_sg/07/04/2025/1987d86786560de719f36f7d4d365db1.png",
+"https://i02.appmifile.com/857_operator_sg/07/04/2025/a55228d5a063631d2a6f47fb4683e676.png",
+"https://i02.appmifile.com/94_operator_sg/07/04/2025/b840f03003c121d57c8aad83e8421c69.png",
+"https://i02.appmifile.com/903_operator_sg/07/04/2025/84b0cedcb560021ecb39b042df8ae7d8.png"
+]}};
 
 function enviar(){
-
-const nome =
-document.getElementById("nome").value.trim();
-
-const modelo =
-document.getElementById("modelo").value.trim();
-
-const servico =
-document.getElementById("servico").value;
-
-const problema =
-document.getElementById("problema").value.trim();
-
-const mensagem =
-"Olá Alpha Cell!%0A%0A" +
-"Gostaria de solicitar um orçamento.%0A%0A" +
-"Nome: " +
-encodeURIComponent(nome || "Não informado") +
-"%0A" +
-"Aparelho: " +
-encodeURIComponent(modelo || "Não informado") +
-"%0A" +
-"Serviço: " +
-encodeURIComponent(servico) +
-"%0A" +
-"Problema: " +
-encodeURIComponent(problema || "Não informado");
-
-window.open(
-"https://wa.me/5518991913982?text=" + mensagem,
-"_blank"
-);
-
+const nome=document.getElementById("nome").value.trim(),modelo=document.getElementById("modelo").value.trim(),servico=document.getElementById("servico").value,problema=document.getElementById("problema").value.trim();
+const mensagem="Olá Alpha Cell!%0A%0AGostaria de solicitar um orçamento.%0A%0ANome: "+encodeURIComponent(nome||"Não informado")+"%0AAparelho: "+encodeURIComponent(modelo||"Não informado")+"%0AServiço: "+encodeURIComponent(servico)+"%0AProblema: "+encodeURIComponent(problema||"Não informado");
+window.open("https://wa.me/5518991913982?text="+mensagem,"_blank");
 }
-
-</script>
-<script>
-const ALPHA_CART_KEY = "alphaCellCart";
-
-function alphaGetCart() {
-  try {
-    return JSON.parse(localStorage.getItem(ALPHA_CART_KEY)) || [];
-  } catch (e) {
-    return [];
-  }
+function alphaGetCart(){try{return JSON.parse(localStorage.getItem(ALPHA_CART_KEY))||[]}catch(e){return[]}}
+function alphaSaveCart(cart){localStorage.setItem(ALPHA_CART_KEY,JSON.stringify(cart))}
+function alphaUpdateCartCount(){const total=alphaGetCart().reduce((s,i)=>s+(i.quantity||0),0);const c=document.getElementById("cartCount");if(c)c.textContent=total}
+function alphaAddProduct(id,name,price,colorId){
+let color=null;if(colorId){color=document.getElementById(colorId).value;if(!color){alert("Escolha a cor do aparelho.");return}}
+const cart=alphaGetCart(),key=id+(color?":"+color:""),produto=cart.find(i=>i.key===key);
+if(produto)produto.quantity+=1;else cart.push({key,id,name,price,quantity:1,color});
+alphaSaveCart(cart);alphaUpdateCartCount();
 }
-
-function alphaSaveCart(cart) {
-  localStorage.setItem(ALPHA_CART_KEY, JSON.stringify(cart));
+function alphaBuyProduct(id,name,price,colorId){
+let color=null;if(colorId){color=document.getElementById(colorId).value;if(!color){alert("Escolha a cor do aparelho.");return}}
+alphaCreatePayment([{id,name,price,quantity:1,color}]);
 }
-
-function alphaUpdateCartCount() {
-  const cart = alphaGetCart();
-
-  const total = cart.reduce(function(sum, item) {
-    return sum + (item.quantity || 0);
-  }, 0);
-
-  const count = document.getElementById("cartCount");
-
-  if (count) {
-    count.textContent = total;
-  }
+async function alphaCreatePayment(items){
+const total=items.reduce((s,i)=>s+i.price*i.quantity,0),title=items.length===1?items[0].name:"Pedido Alpha Cell";
+try{
+const r=await fetch("https://flat-sky-c66falpha-cell-pagamentos.alphacell012021.workers.dev/",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({title,unit_price:total,quantity:1})});
+const d=await r.json();if(!r.ok||!d.checkout_url)throw new Error("Pagamento");
+window.location.href=d.checkout_url;
+}catch(e){alert("Não foi possível abrir o pagamento agora. Tente novamente.")}
 }
-function alphaAddCart() {
-    const cart = alphaGetCart();
-
-    const produto = cart.find(function(item) {
-        return item.id === "redmi-15c";
-    });
-
-    if (produto) {
-        produto.quantity += 1;
-    } else {
-        cart.push({
-            id: "redmi-15c",
-            name: "Xiaomi Redmi 15C",
-            price: 1249.99,
-            quantity: 1
-        });
-    }
-
-    alphaSaveCart(cart);
-    alphaUpdateCartCount();
+function alphaOpenProduct(id){
+const p=ALPHA_PRODUCTS[id];if(!p)return;
+const old=document.getElementById("productModal");if(old)old.remove();
+const m=document.createElement("div");m.id="productModal";m.className="modal-backdrop";
+m.innerHTML='<div class="modal-box"><button class="modal-close" onclick="document.getElementById(\'productModal\').remove()">✕ Fechar</button><h2>'+p.name+'</h2><p class="muted">Galeria do produto</p><div class="modal-gallery">'+p.images.map(s=>'<img src="'+s+'" alt="'+p.name+'">').join("")+'</div></div>';
+document.body.appendChild(m);
 }
-
-  
-
-function alphaOpenCart() {
-  const cart = alphaGetCart();
-
-  if (cart.length === 0) {
-    alert("🛒 Seu carrinho está vazio.");
-    return;
-  }
-
-  const total = cart.reduce(function(sum, item) {
-    return sum + item.price * item.quantity;
-  }, 0);
-
-  const oldCheckout = document.getElementById("checkoutBox");
-  if (oldCheckout) {
-    oldCheckout.remove();
-  }
-
-  const checkout = document.createElement("div");
-  checkout.id = "checkoutBox";
-
-  checkout.innerHTML = `
-    <div style="
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.75);
-      z-index:9999;
-      overflow-y:auto;
-      padding:20px;
-    ">
-
-      <div style="
-        max-width:500px;
-        margin:20px auto;
-        background:#181818;
-        border:1px solid #353535;
-        border-radius:18px;
-        padding:20px;
-        color:#fff;
-      ">
-
-        <h2 style="margin-top:0;">
-          🛒 Finalizar compra
-        </h2>
-
-        <p style="color:#bbb;">
-          Preencha seus dados para continuar.
-        </p>
-
-        <h3>👤 Dados do cliente</h3>
-
-        <label>Nome completo</label>
-        <input
-          id="checkoutNome"
-          type="text"
-          placeholder="Digite seu nome completo"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <label>CPF</label>
-        <input
-          id="checkoutCpf"
-          type="text"
-          placeholder="000.000.000-00"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <label>WhatsApp / Telefone</label>
-        <input
-          id="checkoutTelefone"
-          type="tel"
-          placeholder="(18) 99999-9999"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <label>E-mail</label>
-        <input
-          id="checkoutEmail"
-          type="email"
-          placeholder="seuemail@email.com"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <h3>📍 Endereço de entrega</h3>
-
-        <label>CEP</label>
-        <input
-          id="checkoutCep"
-          type="text"
-          placeholder="00000-000"
-          maxlength="9"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <label>Endereço</label>
-        <input
-          id="checkoutEndereco"
-          type="text"
-          placeholder="Será preenchido pelo CEP"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <label>Número</label>
-        <input
-          id="checkoutNumero"
-          type="text"
-          placeholder="Número"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <label>Complemento</label>
-        <input
-          id="checkoutComplemento"
-          type="text"
-          placeholder="Apartamento, casa, etc. (opcional)"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <label>Bairro</label>
-        <input
-          id="checkoutBairro"
-          type="text"
-          placeholder="Será preenchido pelo CEP"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <label>Cidade</label>
-        <input
-          id="checkoutCidade"
-          type="text"
-          placeholder="Será preenchida pelo CEP"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <label>Estado</label>
-        <input
-          id="checkoutEstado"
-          type="text"
-          placeholder="Será preenchido pelo CEP"
-          style="width:100%;padding:12px;margin:6px 0 14px;border-radius:10px;border:1px solid #555;background:#222;color:#fff;"
-        >
-
-        <div style="
-          background:#222;
-          padding:14px;
-          border-radius:12px;
-          margin:15px 0;
-        ">
-          <strong>Total do pedido:</strong><br>
-          <span style="font-size:22px;">
-            R$ ${total.toLocaleString("pt-BR", {
-              minimumFractionDigits: 2
-            })}
-          </span>
-        </div>
-
-        <button
-          type="button"
-
-  onclick="alphaComprarAgora()"
-          style="
-            width:100%;
-            padding:14px;
-            border:0;
-            border-radius:12px;
-            background:#b86f5d;
-            color:#fff;
-            font-size:16px;
-            font-weight:bold;
-            margin-top:5px;
-          "
-        >
-          Continuar para pagamento
-        </button>
-
-        <button
-          type="button"
-          onclick="document.getElementById('checkoutBox').remove()"
-          style="
-            width:100%;
-            padding:12px;
-            border:1px solid #555;
-            border-radius:12px;
-            background:#222;
-            color:#fff;
-            font-size:15px;
-            margin-top:10px;
-          "
-        >
-          Voltar
-        </button>
-
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(checkout);
+function alphaOpenCart(){
+const cart=alphaGetCart();if(!cart.length){alert("🛒 Seu carrinho está vazio.");return}
+const old=document.getElementById("checkoutBox");if(old)old.remove();
+const total=cart.reduce((s,i)=>s+i.price*i.quantity,0),box=document.createElement("div");box.id="checkoutBox";
+box.innerHTML='<div class="modal-backdrop"><div class="modal-box"><button class="modal-close" onclick="document.getElementById(\'checkoutBox\').remove()">✕ Fechar</button><h2>🛒 Finalizar compra</h2><p class="muted">Confira os produtos e preencha seus dados.</p><div style="background:#222;padding:14px;border-radius:12px;margin:15px 0"><b>Itens:</b><br>'+cart.map(i=>i.quantity+"x "+i.name+(i.color?" — "+i.color:"")).join("<br>")+'<br><br><strong>Total: R$ '+total.toLocaleString("pt-BR",{minimumFractionDigits:2})+'</strong></div><label>Nome completo</label><input id="checkoutNome" placeholder="Digite seu nome completo"><label>CPF</label><input id="checkoutCpf" placeholder="000.000.000-00"><label>WhatsApp / Telefone</label><input id="checkoutTelefone" placeholder="(18) 99999-9999"><label>E-mail</label><input id="checkoutEmail" type="email" placeholder="seuemail@email.com"><h3>📍 Endereço de entrega</h3><label>CEP</label><input id="checkoutCep" maxlength="9" placeholder="00000-000"><label>Endereço</label><input id="checkoutEndereco" placeholder="Será preenchido pelo CEP"><label>Número</label><input id="checkoutNumero" placeholder="Número"><label>Complemento</label><input id="checkoutComplemento" placeholder="Opcional"><label>Bairro</label><input id="checkoutBairro" placeholder="Será preenchido pelo CEP"><label>Cidade</label><input id="checkoutCidade" placeholder="Será preenchida pelo CEP"><label>Estado</label><input id="checkoutEstado" placeholder="Será preenchido pelo CEP"><button class="btn orange" style="width:100%;margin-top:18px" onclick="alphaCreatePayment(alphaGetCart())">Continuar para pagamento</button></div></div>';
+document.body.appendChild(box);document.getElementById("checkoutCep").addEventListener("blur",alphaBuscarCep);
 }
-async function alphaComprarAgora() {
-  const botao = document.querySelector('.product-actions .btn.orange');
-
-  if (botao) {
-    botao.disabled = true;
-    botao.textContent = "⏳ Abrindo pagamento...";
-  }
-
-  try {
-    const resposta = await fetch(
-      "https://flat-sky-c66falpha-cell-pagamentos.alphacell012021.workers.dev/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          title: "Xiaomi Redmi 15C",
-          unit_price: 1249.99,
-          quantity: 1
-        })
-      }
-    );
-
-    const dados = await resposta.json();
-
-    if (!resposta.ok || !dados.checkout_url) {
-      throw new Error("Não foi possível criar o pagamento.");
-    }
-
-    window.location.href = dados.checkout_url;
-
-  } catch (erro) {
-    alert("Não foi possível abrir o pagamento agora. Tente novamente.");
-
-    if (botao) {
-      botao.disabled = false;
-      botao.textContent = "⚡ Comprar agora";
-    }
-  }
-}
-document.addEventListener("DOMContentLoaded", function() {
-document.getElementById("checkoutCep").addEventListener("blur", async function() {
-    const cep = this.value.replace(/\D/g, "");
-
-    if (cep.length !== 8) {
-        return;
-    }
-
-    try {
-        const resposta = await fetch("https://viacep.com.br/ws/" + cep + "/json/");
-        const dados = await resposta.json();
-
-        if (dados.erro) {
-            alert("CEP não encontrado.");
-            return;
-        }
-
-        document.getElementById("checkoutEndereco").value = dados.logradouro || "";
-        document.getElementById("checkoutBairro").value = dados.bairro || "";
-        document.getElementById("checkoutCidade").value = dados.localidade || "";
-        document.getElementById("checkoutEstado").value = dados.uf || "";
-
-    } catch (erro) {
-        alert("Não foi possível consultar o CEP. Verifique sua conexão.");
-    }
-});  alphaUpdateCartCount();
-});
+async function alphaBuscarCep(){
+const cep=this.value.replace(/\D/g,"");if(cep.length!==8)return;
+try{const r=await fetch("https://viacep.com.br/ws/"+cep+"/json/"),d=await r.json();if(d.erro){alert("CEP não encontrado.");return}
+document.getElementById("checkoutEndereco").value=d.logradouro||"";document.getElementById("checkoutBairro").value=d.bairro||"";document.getElementById("checkoutCidade").value=d.localidade||"";document.getElementById("checkoutEstado").value=d.uf||"";
+}catch(e){alert("Não foi possível consultar o CEP. Verifique sua conexão.")}}
+document.addEventListener("DOMContentLoaded",alphaUpdateCartCount);
 </script>
 </body>
 </html>
