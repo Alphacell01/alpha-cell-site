@@ -78,511 +78,398 @@ footer{margin-top:40px;padding:24px 0;border-top:1px solid #292929;color:#999;fo
 <section class="section" id="produtos">
 <h2>📱 Smartphones</h2>
 <p class="muted">Escolha a cor, veja as fotos e adicione o aparelho ao carrinho.</p>
-<div class="products-grid">
+<div class="products-grid" id="alphaCatalog">
 
-<article class="shop-card">
-<img class="shop-main" src="https://www.dasher.com.my/cdn/shop/files/POCO_C81_Pro_2.png?v=1780386108&width=1214" alt="Xiaomi POCO C81 Pro" onclick="alphaOpenProduct('poco-c81-pro')">
-<div class="shop-info">
-<h3>Xiaomi POCO C81 Pro</h3>
-<p>128 GB • 4 GB RAM • Dual SIM • Tela 6,9"</p>
-<div class="shop-price">R$ 1.350,00</div>
-<div class="color-label">Cor</div>
-<select class="color-select" id="color-poco-c81-pro">
-<option value="">Selecione a cor</option><option>Preto</option><option>Verde</option><option>Dourado</option>
-</select>
-<div class="gallery-hint">👆 Toque na foto para ver a galeria</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('poco-c81-pro','Xiaomi POCO C81 Pro',1350,'color-poco-c81-pro')">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('poco-c81-pro','Xiaomi POCO C81 Pro',1350,'color-poco-c81-pro')">⚡ Comprar</button>
-</div>
-</div>
-</article>
+<style>
+.alpha-catalog-card{
+  overflow:hidden;
+  border-radius:20px;
+  background:linear-gradient(145deg,#181818,#0e0e0e);
+  border:1px solid #353535;
+  box-shadow:0 12px 30px rgba(0,0,0,.30);
+}
+.alpha-catalog-img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:contain;
+  display:block;
+  background:#fff;
+  cursor:pointer;
+}
+.alpha-catalog-info{
+  padding:16px;
+}
+.alpha-catalog-info h3{
+  margin:0 0 8px;
+  font-size:20px;
+}
+.alpha-catalog-info p{
+  margin:6px 0;
+  color:#ccc;
+  font-size:14px;
+}
+.alpha-catalog-price{
+  font-size:23px;
+  font-weight:900;
+  color:#e7a08d;
+  margin:12px 0;
+}
+.alpha-catalog-actions{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+.alpha-catalog-actions button{
+  flex:1;
+  min-height:46px;
+  border:0;
+  border-radius:11px;
+  padding:10px 7px;
+  background:#b86f5d;
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+}
+.alpha-catalog-actions button:hover{
+  opacity:.9;
+}
+@media(max-width:430px){
+  .alpha-catalog-actions{
+    flex-direction:column;
+  }
+}
+</style>
 
-<article class="shop-card">
-<img class="shop-main" src="https://i02.appmifile.com/846_operator_sg/07/04/2025/1987d86786560de719f36f7d4d365db1.png" alt="Xiaomi POCO C71" onclick="alphaOpenProduct('poco-c71')">
-<div class="shop-info">
-<h3>Xiaomi POCO C71</h3>
-<p>128 GB • 4 GB RAM • Dual SIM • Tela 6,88"</p>
-<div class="shop-price">R$ 1.290,00</div>
-<div class="color-label">Cor</div>
-<select class="color-select" id="color-poco-c71">
-<option value="">Selecione a cor</option><option>Preto</option><option>Azul</option><option>Dourado</option>
-</select>
-<div class="gallery-hint">👆 Toque na foto para ver a galeria</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('poco-c71','Xiaomi POCO C71',1290,'color-poco-c71')">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('poco-c71','Xiaomi POCO C71',1290,'color-poco-c71')">⚡ Comprar</button>
 </div>
-</div>
-</article>
-<!-- ================= PRODUTOS ADICIONAIS ================= -->
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Hotway+A18+Pro+Max" alt="Hotway A18 Pro Max">
-<div class="shop-info">
-<h3>Hotway A18 Pro Max</h3>
-<p>128 GB • 12 GB RAM</p>
-<div class="shop-price">R$ 2.199,99</div>
-<div class="color-label">Cor</div>
-<select class="color-select" id="color-hotway-a18">
-<option value="">Selecione a cor</option>
-<option>Laranja</option>
-<option>Cinza</option>
-<option>Branco</option>
-</select>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('hotway-a18','Hotway A18 Pro Max',2199.99,'color-hotway-a18')">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('hotway-a18','Hotway A18 Pro Max',2199.99,'color-hotway-a18')">⚡ Comprar</button>
-</div>
-</div>
-</article>
+<script>
+const alphaCatalogProducts = [
+  {
+    id:"poco-c81-pro",
+    name:"Xiaomi POCO C81 Pro",
+    price:1350,
+    image:"https://www.dasher.com.my/cdn/shop/files/POCO_C81_Pro_2.png?v=1780386108&width=1214",
+    description:"128 GB • 4 GB RAM • Dual SIM • Tela 6,9\""
+  },
+  {
+    id:"poco-c71",
+    name:"Xiaomi POCO C71",
+    price:1290,
+    image:"https://i02.appmifile.com/846_operator_sg/07/04/2025/1987d86786560de719f36f7d4d365db1.png",
+    description:"128 GB • 4 GB RAM • Dual SIM • Tela 6,88\""
+  },
+  {
+    id:"hotway-a18",
+    name:"Hotway A18 Pro Max",
+    price:2199.99,
+    image:"https://via.placeholder.com/600x600?text=Hotway+A18+Pro+Max",
+    description:"128 GB • 12 GB RAM"
+  },
+  {
+    id:"tablet-infantil-7",
+    name:"Tablet Infantil 7\"",
+    price:759.99,
+    image:"https://via.placeholder.com/600x600?text=Tablet+Infantil+7",
+    description:"128 GB • 4 GB RAM • 2 chips + cartão"
+  },
+  {
+    id:"redmi-note-17-128-6",
+    name:"Redmi Note 17 — 128 GB / 6 GB",
+    price:1949.99,
+    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17",
+    description:"Cor: Preto"
+  },
+  {
+    id:"redmi-note-17-256-6",
+    name:"Redmi Note 17 — 256 GB / 6 GB",
+    price:2299.99,
+    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17+256+6GB",
+    description:"Preto • Lilás • Azul"
+  },
+  {
+    id:"redmi-note-17-256-8",
+    name:"Redmi Note 17 — 256 GB / 8 GB",
+    price:2349.99,
+    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17+256+8GB",
+    description:"Cor: Preto"
+  },
+  {
+    id:"redmi-note-17-5g",
+    name:"Redmi Note 17 5G — 128 GB / 6 GB",
+    price:2449.99,
+    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17+5G",
+    description:"Preto • Roxo • Azul"
+  },
+  {
+    id:"redmi-note-17-pro-5g",
+    name:"Redmi Note 17 Pro 5G — 256 GB / 12 GB",
+    price:3449.99,
+    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17+Pro+5G",
+    description:"Preto • Roxo"
+  },
+  {
+    id:"redmi-note-17-pro-max",
+    name:"Redmi Note 17 Pro Max 5G — 512 GB / 8 GB",
+    price:4549.99,
+    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17+Pro+Max",
+    description:"Preto • Rosa"
+  },
+  {
+    id:"redmi-17-128-4",
+    name:"Redmi 17 — 128 GB / 4 GB",
+    price:1490,
+    image:"https://via.placeholder.com/600x600?text=Redmi+17",
+    description:"Preto • Azul"
+  },
+  {
+    id:"redmi-17-256-4",
+    name:"Redmi 17 — 256 GB / 4 GB",
+    price:1670,
+    image:"https://via.placeholder.com/600x600?text=Redmi+17+256+4GB",
+    description:"Preto • Azul • Roxo • Verde"
+  },
+  {
+    id:"redmi-17-256-6",
+    name:"Redmi 17 — 256 GB / 6 GB",
+    price:1980,
+    image:"https://via.placeholder.com/600x600?text=Redmi+17+256+6GB",
+    description:"Preto • Azul • Roxo"
+  },
+  {
+    id:"redmi-15c-256",
+    name:"Redmi 15C 4G NFC — 256 GB / 4 GB",
+    price:1449.99,
+    image:"https://via.placeholder.com/600x600?text=Redmi+15C+256GB",
+    description:"+ 4 GB RAM virtual • Versão Global • Preto • Verde • Azul"
+  },
+  {
+    id:"samsung-a07-128",
+    name:"Samsung A07 — 128 GB / 4 GB",
+    price:1290,
+    image:"https://via.placeholder.com/600x600?text=Samsung+A07",
+    description:"Preto • Violeta • Verde"
+  },
+  {
+    id:"samsung-a07-256",
+    name:"Samsung A07 — 256 GB / 8 GB",
+    price:1349.99,
+    image:"https://via.placeholder.com/600x600?text=Samsung+A07+256GB",
+    description:"Preto • Verde • Violeta"
+  },
+  {
+    id:"jbl-boombox-4-branca",
+    name:"JBL Boombox 4 — Branca",
+    price:2750,
+    image:"https://via.placeholder.com/600x600?text=JBL+Boombox+4",
+    description:""
+  },
+  {
+    id:"jbl-boombox-4-preta",
+    name:"JBL Boombox 4 — Preta/Azul",
+    price:2849.99,
+    image:"https://via.placeholder.com/600x600?text=JBL+Boombox+4",
+    description:""
+  },
+  {
+    id:"jbl-go-5",
+    name:"JBL Go 5",
+    price:549.99,
+    image:"https://via.placeholder.com/600x600?text=JBL+Go+5",
+    description:"Azul • Amarela • Branca • Camuflada • Preta • Laranja • Roxa • Vermelha"
+  },
+  {
+    id:"hollyland-lark-a2",
+    name:"Hollyland Lark A2 Duo",
+    price:649.99,
+    image:"https://via.placeholder.com/600x600?text=Hollyland+Lark+A2",
+    description:"Microfone de lapela • USB-C"
+  },
+  {
+    id:"redmi-pad-2-128",
+    name:"Redmi Pad 2 — 128 GB / 4 GB",
+    price:1999,
+    image:"https://via.placeholder.com/600x600?text=Redmi+Pad+2",
+    description:"Grafite"
+  },
+  {
+    id:"redmi-pad-2-256",
+    name:"Redmi Pad 2 — 256 GB / 8 GB",
+    price:2199,
+    image:"https://via.placeholder.com/600x600?text=Redmi+Pad+2+256GB",
+    description:"Grafite"
+  },
+  {
+    id:"echo-pop",
+    name:"Amazon Echo Pop",
+    price:590,
+    image:"https://via.placeholder.com/600x600?text=Echo+Pop",
+    description:""
+  },
+  {
+    id:"echo-pop-kids",
+    name:"Amazon Echo Pop Kids",
+    price:630,
+    image:"https://via.placeholder.com/600x600?text=Echo+Pop+Kids",
+    description:""
+  },
+  {
+    id:"echo-dot-5",
+    name:"Amazon Echo Dot 5",
+    price:730,
+    image:"https://via.placeholder.com/600x600?text=Echo+Dot+5",
+    description:""
+  },
+  {
+    id:"echo-spot",
+    name:"Amazon Echo Spot",
+    price:950,
+    image:"https://via.placeholder.com/600x600?text=Echo+Spot",
+    description:""
+  },
+  {
+    id:"echo-dot-max",
+    name:"Amazon Echo Dot Max",
+    price:1290,
+    image:"https://via.placeholder.com/600x600?text=Echo+Dot+Max",
+    description:""
+  },
+  {
+    id:"echo-show-5",
+    name:"Echo Show 5 — 3ª geração",
+    price:1550,
+    image:"https://via.placeholder.com/600x600?text=Echo+Show+5",
+    description:""
+  },
+  {
+    id:"echo-show-8",
+    name:"Echo Show 8",
+    price:1450,
+    image:"https://via.placeholder.com/600x600?text=Echo+Show+8",
+    description:""
+  },
+  {
+    id:"echo-show-11",
+    name:"Echo Show 11",
+    price:2670,
+    image:"https://via.placeholder.com/600x600?text=Echo+Show+11",
+    description:""
+  },
+  {
+    id:"benedo-be17",
+    name:"Tablet Benedo BE17 Pro Max",
+    price:1350,
+    image:"https://via.placeholder.com/600x600?text=Benedo+BE17+Pro+Max",
+    description:"Tela 10,1\" • 16 GB + 1 TB • Android 15 • Bateria 8.000 mAh • Dual SIM/Wi-Fi • GPS • Câmeras 24 MP + 48 MP"
+  },
+  {
+    id:"redmi-a7-pro-64",
+    name:"Redmi A7 Pro — 64 GB / 3 GB",
+    price:1290,
+    image:"https://via.placeholder.com/600x600?text=Redmi+A7+Pro",
+    description:""
+  },
+  {
+    id:"redmi-a7-pro-128",
+    name:"Redmi A7 Pro — 128 GB / 4 GB",
+    price:1450,
+    image:"https://via.placeholder.com/600x600?text=Redmi+A7+Pro+128GB",
+    description:""
+  },
+  {
+    id:"lg-b220",
+    name:"LG B220 3G",
+    price:249.99,
+    image:"https://via.placeholder.com/600x600?text=LG+B220",
+    description:""
+  },
+  {
+    id:"lg-g360",
+    name:"LG G360 4G",
+    price:320,
+    image:"https://via.placeholder.com/600x600?text=LG+G360",
+    description:""
+  },
+  {
+    id:"nokia-105-4g",
+    name:"Nokia 105 4G",
+    price:299,
+    image:"https://via.placeholder.com/600x600?text=Nokia+105+4G",
+    description:""
+  }
+];
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Tablet+Infantil+7" alt="Tablet Infantil 7">
-<div class="shop-info">
-<h3>Tablet Infantil 7"</h3>
-<p>128 GB • 4 GB RAM • 2 chips + cartão</p>
-<div class="shop-price">R$ 759,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('tablet-infantil-7','Tablet Infantil 7',759.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('tablet-infantil-7','Tablet Infantil 7',759.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+const alphaCatalog=document.getElementById("alphaCatalog");
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+Note+17" alt="Redmi Note 17">
-<div class="shop-info">
-<h3>Redmi Note 17 — 128 GB / 6 GB</h3>
-<p>Cor: Preto</p>
-<div class="shop-price">R$ 1.949,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-note-17-128-6','Redmi Note 17 128GB 6GB',1949.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-note-17-128-6','Redmi Note 17 128GB 6GB',1949.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+alphaCatalogProducts.forEach(p=>{
+  const card=document.createElement("article");
+  card.className="alpha-catalog-card";
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+Note+17+256+6GB" alt="Redmi Note 17">
-<div class="shop-info">
-<h3>Redmi Note 17 — 256 GB / 6 GB</h3>
-<p>Preto • Lilás • Azul</p>
-<div class="shop-price">R$ 2.299,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-note-17-256-6','Redmi Note 17 256GB 6GB',2299.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-note-17-256-6','Redmi Note 17 256GB 6GB',2299.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+  card.innerHTML=`
+    <img
+      class="alpha-catalog-img"
+      src="${p.image}"
+      alt="${p.name}"
+      onclick="alphaCatalogImage('${p.image}','${p.name.replace(/'/g,"&#39;")}')"
+    >
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+Note+17+256+8GB" alt="Redmi Note 17">
-<div class="shop-info">
-<h3>Redmi Note 17 — 256 GB / 8 GB</h3>
-<p>Cor: Preto</p>
-<div class="shop-price">R$ 2.349,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-note-17-256-8','Redmi Note 17 256GB 8GB',2349.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-note-17-256-8','Redmi Note 17 256GB 8GB',2349.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+    <div class="alpha-catalog-info">
+      <h3>${p.name}</h3>
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+Note+17+5G" alt="Redmi Note 17 5G">
-<div class="shop-info">
-<h3>Redmi Note 17 5G — 128 GB / 6 GB</h3>
-<p>Preto • Roxo • Azul</p>
-<div class="shop-price">R$ 2.449,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-note-17-5g','Redmi Note 17 5G 128GB 6GB',2449.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-note-17-5g','Redmi Note 17 5G 128GB 6GB',2449.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+      ${p.description ? `<p>${p.description}</p>` : ""}
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+Note+17+Pro+5G" alt="Redmi Note 17 Pro 5G">
-<div class="shop-info">
-<h3>Redmi Note 17 Pro 5G — 256 GB / 12 GB</h3>
-<p>Preto • Roxo</p>
-<div class="shop-price">R$ 3.449,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-note-17-pro-5g','Redmi Note 17 Pro 5G 256GB 12GB',3449.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-note-17-pro-5g','Redmi Note 17 Pro 5G 256GB 12GB',3449.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+      <div class="alpha-catalog-price">
+        R$ ${p.price.toLocaleString("pt-BR",{minimumFractionDigits:2})}
+      </div>
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+Note+17+Pro+Max" alt="Redmi Note 17 Pro Max">
-<div class="shop-info">
-<h3>Redmi Note 17 Pro Max 5G — 512 GB / 8 GB</h3>
-<p>Preto • Rosa</p>
-<div class="shop-price">R$ 4.549,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-note-17-pro-max','Redmi Note 17 Pro Max 5G 512GB 8GB',4549.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-note-17-pro-max','Redmi Note 17 Pro Max 5G 512GB 8GB',4549.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+      <div class="alpha-catalog-actions">
+        <button
+          type="button"
+          onclick="alphaAddProduct('${p.id}','${p.name.replace(/'/g,"&#39;")}',${p.price})">
+          🛒 Adicionar ao carrinho
+        </button>
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+17" alt="Redmi 17">
-<div class="shop-info">
-<h3>Redmi 17 — 128 GB / 4 GB</h3>
-<p>Preto • Azul</p>
-<div class="shop-price">R$ 1.490,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-17-128-4','Redmi 17 128GB 4GB',1490)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-17-128-4','Redmi 17 128GB 4GB',1490)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+        <button
+          type="button"
+          onclick="alphaBuyProduct('${p.id}','${p.name.replace(/'/g,"&#39;")}',${p.price})">
+          ⚡ Comprar agora
+        </button>
+      </div>
+    </div>
+  `;
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+17+256+4GB" alt="Redmi 17">
-<div class="shop-info">
-<h3>Redmi 17 — 256 GB / 4 GB</h3>
-<p>Preto • Azul • Roxo • Verde</p>
-<div class="shop-price">R$ 1.670,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-17-256-4','Redmi 17 256GB 4GB',1670)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-17-256-4','Redmi 17 256GB 4GB',1670)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+  alphaCatalog.appendChild(card);
+});
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+17+256+6GB" alt="Redmi 17">
-<div class="shop-info">
-<h3>Redmi 17 — 256 GB / 6 GB</h3>
-<p>Preto • Azul • Roxo</p>
-<div class="shop-price">R$ 1.980,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-17-256-6','Redmi 17 256GB 6GB',1980)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-17-256-6','Redmi 17 256GB 6GB',1980)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+function alphaCatalogImage(url,name){
+  const old=document.getElementById("alphaCatalogPhoto");
+  if(old)old.remove();
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+15C+256GB" alt="Redmi 15C">
-<div class="shop-info">
-<h3>Redmi 15C 4G NFC — 256 GB / 4 GB</h3>
-<p>+ 4 GB RAM virtual • Versão Global</p>
-<p>Preto • Verde • Azul</p>
-<div class="shop-price">R$ 1.449,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-15c-256','Redmi 15C 256GB 4GB',1449.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-15c-256','Redmi 15C 256GB 4GB',1449.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+  const box=document.createElement("div");
+  box.id="alphaCatalogPhoto";
+  box.className="modal-backdrop";
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Samsung+A07" alt="Samsung A07">
-<div class="shop-info">
-<h3>Samsung A07 — 128 GB / 4 GB</h3>
-<p>Preto • Violeta • Verde</p>
-<div class="shop-price">R$ 1.290,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('samsung-a07-128','Samsung A07 128GB 4GB',1290)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('samsung-a07-128','Samsung A07 128GB 4GB',1290)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+  box.innerHTML=`
+    <div class="modal-box">
+      <button
+        class="modal-close"
+        onclick="document.getElementById('alphaCatalogPhoto').remove()">
+        ✕ Fechar
+      </button>
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Samsung+A07+256GB" alt="Samsung A07">
-<div class="shop-info">
-<h3>Samsung A07 — 256 GB / 8 GB</h3>
-<p>Preto • Verde • Violeta</p>
-<div class="shop-price">R$ 1.349,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('samsung-a07-256','Samsung A07 256GB 8GB',1349.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('samsung-a07-256','Samsung A07 256GB 8GB',1349.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+      <h2>${name}</h2>
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=JBL+Boombox+4" alt="JBL Boombox 4">
-<div class="shop-info">
-<h3>JBL Boombox 4 — Branca</h3>
-<div class="shop-price">R$ 2.750,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('jbl-boombox-4-branca','JBL Boombox 4 Branca',2750)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('jbl-boombox-4-branca','JBL Boombox 4 Branca',2750)">⚡ Comprar</button>
-</div>
-</div>
-</article>
+      <div style="margin-top:15px">
+        <img
+          src="${url}"
+          alt="${name}"
+          style="width:100%;max-height:70vh;object-fit:contain;background:#fff;border-radius:15px">
+      </div>
+    </div>
+  `;
 
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=JBL+Boombox+4" alt="JBL Boombox 4">
-<div class="shop-info">
-<h3>JBL Boombox 4 — Preta/Azul</h3>
-<div class="shop-price">R$ 2.849,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('jbl-boombox-4-preta-azul','JBL Boombox 4 Preta/Azul',2849.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('jbl-boombox-4-preta-azul','JBL Boombox 4 Preta/Azul',2849.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=JBL+Go+5" alt="JBL Go 5">
-<div class="shop-info">
-<h3>JBL Go 5</h3>
-<p>Azul • Amarela • Branca • Camuflada • Preta • Laranja • Roxa • Vermelha</p>
-<div class="shop-price">R$ 549,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('jbl-go-5','JBL Go 5',549.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('jbl-go-5','JBL Go 5',549.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Hollyland+Lark+A2" alt="Hollyland Lark A2 Duo">
-<div class="shop-info">
-<h3>Hollyland Lark A2 Duo</h3>
-<p>Microfone de lapela • USB-C</p>
-<div class="shop-price">R$ 649,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('hollyland-lark-a2','Hollyland Lark A2 Duo USB-C',649.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('hollyland-lark-a2','Hollyland Lark A2 Duo USB-C',649.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+Pad+2" alt="Redmi Pad 2">
-<div class="shop-info">
-<h3>Redmi Pad 2 — 128 GB / 4 GB</h3>
-<p>Grafite</p>
-<div class="shop-price">R$ 1.999,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-pad-2-128','Redmi Pad 2 128GB 4GB',1999)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-pad-2-128','Redmi Pad 2 128GB 4GB',1999)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+Pad+2+256GB" alt="Redmi Pad 2">
-<div class="shop-info">
-<h3>Redmi Pad 2 — 256 GB / 8 GB</h3>
-<p>Grafite</p>
-<div class="shop-price">R$ 2.199,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-pad-2-256','Redmi Pad 2 256GB 8GB',2199)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-pad-2-256','Redmi Pad 2 256GB 8GB',2199)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Echo+Pop" alt="Echo Pop">
-<div class="shop-info">
-<h3>Amazon Echo Pop</h3>
-<div class="shop-price">R$ 590,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('echo-pop','Amazon Echo Pop',590)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('echo-pop','Amazon Echo Pop',590)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Echo+Pop+Kids" alt="Echo Pop Kids">
-<div class="shop-info">
-<h3>Amazon Echo Pop Kids</h3>
-<div class="shop-price">R$ 630,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('echo-pop-kids','Amazon Echo Pop Kids',630)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('echo-pop-kids','Amazon Echo Pop Kids',630)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Echo+Dot+5" alt="Echo Dot 5">
-<div class="shop-info">
-<h3>Amazon Echo Dot 5</h3>
-<div class="shop-price">R$ 730,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('echo-dot-5','Amazon Echo Dot 5',730)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('echo-dot-5','Amazon Echo Dot 5',730)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Echo+Spot" alt="Echo Spot">
-<div class="shop-info">
-<h3>Amazon Echo Spot</h3>
-<div class="shop-price">R$ 950,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('echo-spot','Amazon Echo Spot',950)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('echo-spot','Amazon Echo Spot',950)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Echo+Dot+Max" alt="Echo Dot Max">
-<div class="shop-info">
-<h3>Amazon Echo Dot Max</h3>
-<div class="shop-price">R$ 1.290,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('echo-dot-max','Amazon Echo Dot Max',1290)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('echo-dot-max','Amazon Echo Dot Max',1290)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Echo+Show+5" alt="Echo Show 5">
-<div class="shop-info">
-<h3>Echo Show 5 — 3ª geração</h3>
-<div class="shop-price">R$ 1.550,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('echo-show-5','Amazon Echo Show 5 3ª geração',1550)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('echo-show-5','Amazon Echo Show 5 3ª geração',1550)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Echo+Show+8" alt="Echo Show 8">
-<div class="shop-info">
-<h3>Echo Show 8</h3>
-<div class="shop-price">R$ 1.450,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('echo-show-8','Amazon Echo Show 8',1450)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('echo-show-8','Amazon Echo Show 8',1450)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Echo+Show+11" alt="Echo Show 11">
-<div class="shop-info">
-<h3>Echo Show 11</h3>
-<div class="shop-price">R$ 2.670,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('echo-show-11','Amazon Echo Show 11',2670)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('echo-show-11','Amazon Echo Show 11',2670)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Benedo+BE17+Pro+Max" alt="Tablet Benedo BE17 Pro Max">
-<div class="shop-info">
-<h3>Tablet Benedo BE17 Pro Max</h3>
-<p>Tela 10,1" • 16 GB + 1 TB • Android 15</p>
-<p>Bateria 8.000 mAh • Dual SIM/Wi-Fi • GPS</p>
-<p>Câmeras 24 MP + 48 MP</p>
-<div class="shop-price">R$ 1.350,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('benedo-be17','Tablet Benedo BE17 Pro Max',1350)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('benedo-be17','Tablet Benedo BE17 Pro Max',1350)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+A7+Pro" alt="Redmi A7 Pro">
-<div class="shop-info">
-<h3>Redmi A7 Pro — 64 GB / 3 GB</h3>
-<div class="shop-price">R$ 1.290,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-a7-pro-64','Redmi A7 Pro 64GB 3GB',1290)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-a7-pro-64','Redmi A7 Pro 64GB 3GB',1290)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Redmi+A7+Pro+128GB" alt="Redmi A7 Pro">
-<div class="shop-info">
-<h3>Redmi A7 Pro — 128 GB / 4 GB</h3>
-<div class="shop-price">R$ 1.450,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-a7-pro-128','Redmi A7 Pro 128GB 4GB',1450)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-a7-pro-128','Redmi A7 Pro 128GB 4GB',1450)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=LG+B220" alt="LG B220">
-<div class="shop-info">
-<h3>LG B220 3G</h3>
-<div class="shop-price">R$ 249,99</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('lg-b220','LG B220 3G',249.99)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('lg-b220','LG B220 3G',249.99)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=LG+G360" alt="LG G360">
-<div class="shop-info">
-<h3>LG G360 4G</h3>
-<div class="shop-price">R$ 320,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('lg-g360','LG G360 4G',320)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('lg-g360','LG G360 4G',320)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Nokia+105+4G" alt="Nokia 105 4G">
-<div class="shop-info">
-<h3>Nokia 105 4G</h3>
-<div class="shop-price">R$ 299,00</div>
-<div class="shop-actions">
-<button class="btn orange" type="button" onclick="alphaAddProduct('nokia-105-4g','Nokia 105 4G',299)">🛒 Carrinho</button>
-<button class="btn orange" type="button" onclick="alphaBuyProduct('nokia-105-4g','Nokia 105 4G',299)">⚡ Comprar</button>
-</div>
-</div>
-</article>
-
-<article class="shop-card">
-<img class="shop-main" src="https://via.placeholder.com/600x600?text=Nokia+106+4G" alt="Nokia 106 4G">
-<div class="shop-info">
-<h3>Nokia 106 4G</h3>
-<div class="shop-price">R$ 255,00</
-</div>
-</section>
-
-<section class="section">
-<h2>🔥 Oferta em destaque</h2>
-<div class="product-card">
-<div class="product-gallery">
-<img src="aa4061667487424592217fca700790f3.jpg" alt="Xiaomi Redmi 15C">
-<img src="2b30be011f7d73273168ee2ae85576cb.jpg" alt="Xiaomi Redmi 15C">
-<img src="e0d58c158f120cae611af8bde03b9b0f.jpg" alt="Xiaomi Redmi 15C">
-<img src="e8f77ce3641c844303c5c3e73eb308ab.jpg" alt="Xiaomi Redmi 15C">
-</div>
-<div class="product-info">
-<span class="offer-badge">🔥 Oferta especial</span>
-<h3>Xiaomi Redmi 15C</h3>
-<p>📱 <b>4GB RAM</b> • <b>128GB</b> de armazenamento</p>
-<p>📦 Novo e lacrado</p>
-<div class="price-box"><del>R$ 1.600,00</del><h2>R$ 1.249,99</h2><p>Preço promocional à vista</p></div>
-</div>
-<div class="product-actions">
-<button class="btn orange" type="button" onclick="alphaBuyProduct('redmi-15c','Xiaomi Redmi 15C',1249.99)">⚡ Comprar agora</button>
-<button class="btn orange" type="button" onclick="alphaAddProduct('redmi-15c','Xiaomi Redmi 15C',1249.99)">🛒 Adicionar ao carrinho</button>
-</div>
-</div>
+  document.body.appendChild(box);
+}
+</script>
 </section>
 
 <section class="section"><h2>🎬 Conheça a Alpha Cell</h2><p class="muted">Confira nossos vídeos e veja um pouco do nosso trabalho.</p>
@@ -640,14 +527,38 @@ function alphaGetCart(){try{return JSON.parse(localStorage.getItem(ALPHA_CART_KE
 function alphaSaveCart(cart){localStorage.setItem(ALPHA_CART_KEY,JSON.stringify(cart))}
 function alphaUpdateCartCount(){const total=alphaGetCart().reduce((s,i)=>s+(i.quantity||0),0);const c=document.getElementById("cartCount");if(c)c.textContent=total}
 function alphaAddProduct(id,name,price,colorId){
-let color=null;if(colorId){color=document.getElementById(colorId).value;if(!color){alert("Escolha a cor do aparelho.");return}}
-const cart=alphaGetCart(),key=id+(color?":"+color:""),produto=cart.find(i=>i.key===key);
-if(produto)produto.quantity+=1;else cart.push({key,id,name,price,quantity:1,color});
-alphaSaveCart(cart);alphaUpdateCartCount();
+  const cart=alphaGetCart();
+  const existing=cart.find(p=>p.id===id);
+
+  if(existing){
+    existing.quantity=(existing.quantity||1)+1;
+  }else{
+    cart.push({
+      id:id,
+      name:name,
+      price:Number(price),
+      quantity:1,
+      color:colorId||""
+    });
+  }
+
+  alphaSaveCart(cart);
+  alphaUpdateCartCount();
+
+  const counter=document.getElementById("cartCount");
+  if(counter){
+    counter.textContent=cart.reduce((total,p)=>total+(p.quantity||0),0);
+  }
 }
+
 function alphaBuyProduct(id,name,price,colorId){
-let color=null;if(colorId){color=document.getElementById(colorId).value;if(!color){alert("Escolha a cor do aparelho.");return}}
-alphaCreatePayment([{id,name,price,quantity:1,color}]);
+  alphaCreatePayment([{
+    id:id,
+    name:name,
+    price:Number(price),
+    quantity:1,
+    color:colorId||""
+  }]);
 }
 async function alphaCreatePayment(items){
 const total=items.reduce((s,i)=>s+i.price*i.quantity,0),title=items.length===1?items[0].name:"Pedido Alpha Cell";
