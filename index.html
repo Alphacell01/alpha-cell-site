@@ -180,46 +180,43 @@ const alphaCatalogProducts = [
   description:"128 GB • 4 GB RAM • 2 chips + cartão"
   },
   {
-    id:"redmi-note-17-128-6",
-    name:"Redmi Note 17 — 128 GB / 6 GB",
-    price:1949.99,
-    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17",
-    description:"Cor: Preto"
-  },
-  {
-    id:"redmi-note-17-256-6",
-    name:"Redmi Note 17 — 256 GB / 6 GB",
-    price:2299.99,
-    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17+256+6GB",
-    description:"Preto • Lilás • Azul"
-  },
-  {
-    id:"redmi-note-17-256-8",
-    name:"Redmi Note 17 — 256 GB / 8 GB",
-    price:2349.99,
-    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17+256+8GB",
-    description:"Cor: Preto"
-  },
-  {
-    id:"redmi-note-17-5g",
-    name:"Redmi Note 17 5G — 128 GB / 6 GB",
-    price:2449.99,
-    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17+5G",
-    description:"Preto • Roxo • Azul"
-  },
-  {
-    id:"redmi-note-17-pro-5g",
-    name:"Redmi Note 17 Pro 5G — 256 GB / 12 GB",
-    price:3449.99,
-    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17+Pro+5G",
-    description:"Preto • Roxo"
-  },
-  {
-    id:"redmi-note-17-pro-max",
-    name:"Redmi Note 17 Pro Max 5G — 512 GB / 8 GB",
-    price:4549.99,
-    image:"https://via.placeholder.com/600x600?text=Redmi+Note+17+Pro+Max",
-    description:"Preto • Rosa"
+  id:"redmi-note-17",
+  name:"Redmi Note 17",
+  image:"IMG_20261005_222045.jpg",
+  images:[
+    "IMG_20261005_222045.jpg",
+    "IMG_20261005_222119.jpg",
+    "IMG_20261005_222153.jpg",
+    "IMG_20261005_222223.jpg",
+    "IMG_20261005_222334.jpg",
+    "IMG_20261005_222425.jpg",
+    "IMG_20261005_222515.jpg",
+    "IMG_20261005_222551.jpg"
+  ],
+  variants:[
+    {
+      name:"128 GB / 6 GB - Preto",
+      price:1949.99
+    },
+    {
+      name:"256 GB / 6 GB - Preto/Lilás/Azul",
+      price:2299.99
+    },
+    {
+      name:"256 GB / 8 GB - Preto",
+      price:2349.99
+    },
+    {
+      name:"5G 128 GB / 6 GB - Preto/Roxo/Azul",
+      price:2449.99
+    },
+    {
+      name:"Pro 5G 256 GB / 12 GB - Preto/Roxo",
+      price:3449.99
+    },
+    {
+      name:"Pro Max 5G 512 GB / 8 GB - Preto/Rosa",
+      price:4549.99
   },
   {
     id:"redmi-17-128-4",
@@ -411,6 +408,11 @@ alphaCatalogProducts.forEach(p=>{
   const card=document.createElement("article");
   card.className="alpha-catalog-card";
 
+  const hasVariants=Array.isArray(p.variants)&&p.variants.length>0;
+  const firstVariant=hasVariants?p.variants[0]:null;
+  let currentPrice=hasVariants?firstVariant.price:p.price;
+  let currentName=hasVariants?firstVariant.name:p.name;
+
   card.innerHTML=`
     <img
       class="alpha-catalog-img"
@@ -424,25 +426,97 @@ alphaCatalogProducts.forEach(p=>{
 
       ${p.description ? `<p>${p.description}</p>` : ""}
 
+      ${
+        hasVariants
+        ? `
+          <label style="display:block;margin:10px 0 6px;font-weight:600;">
+            Escolha a versão:
+          </label>
+
+          <select class="alpha-variant-select"
+                  style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+            ${p.variants.map((v,i)=>`
+              <option value="${i}">
+                ${v.name} — R$ ${Number(v.price).toLocaleString("pt-BR",{minimumFractionDigits:2})}
+              </option>
+            `).join("")}
+          </select>
+        `
+        : ""
+      }
+
       <div class="alpha-catalog-price">
-        R$ ${p.price.toLocaleString("pt-BR",{minimumFractionDigits:2})}
+        R$ <span class="alpha-current-price">
+          ${Number(currentPrice).toLocaleString("pt-BR",{minimumFractionDigits:2})}
+        </span>
       </div>
 
       <div class="alpha-catalog-actions">
-        <button
-          type="button"
-          onclick="alphaAddProduct('${p.id}','${p.name.replace(/'/g,"&#39;")}',${p.price})">
+
+        <button type="button" class="alpha-add-button">
           🛒 Adicionar ao carrinho
         </button>
 
-        <button
-          type="button"
-          onclick="alphaBuyProduct('${p.id}','${p.name.replace(/'/g,"&#39;")}',${p.price})">
+        <button type="button" class="alpha-buy-button">
           ⚡ Comprar agora
         </button>
+
       </div>
     </div>
   `;
+
+  const select=card.querySelector(".alpha-variant-select");
+  const priceElement=card.querySelector(".alpha-current-price");
+  const addButton=card.querySelector(".alpha-add-button");
+  const buyButton=card.querySelector(".alpha-buy-button");
+
+  function updateProductSelection(){
+    if(select){
+      const selected=p.variants[Number(select.value)];
+      currentPrice=Number(selected.price);
+      currentName=selected.name;
+
+      priceElement.textContent=currentPrice.toLocaleString("pt-BR",{
+        minimumFractionDigits:2
+      });
+    }
+  }
+
+  if(select){
+    select.addEventListener("change",updateProductSelection);
+  }
+
+  addButton.addEventListener("click",()=>{
+    const productId=hasVariants
+      ? `${p.id}-${currentName.replace(/[^a-zA-Z0-9]+/g,"-").toLowerCase()}`
+      : p.id;
+
+    const productName=hasVariants
+      ? `${p.name} - ${currentName}`
+      : p.name;
+
+    alphaAddProduct(
+      productId,
+      productName,
+      currentPrice
+    );
+  });
+
+  buyButton.addEventListener("click",()=>{
+    const productId=hasVariants
+      ? `${p.id}-${currentName.replace(/[^a-zA-Z0-9]+/g,"-").toLowerCase()}`
+      : p.id;
+
+    const productName=hasVariants
+      ? `${p.name} - ${currentName}`
+      : p.name;
+
+    alphaBuyProduct(
+      productId,
+      productName,
+      currentPrice
+    );
+  });
 
   alphaCatalog.appendChild(card);
 });
