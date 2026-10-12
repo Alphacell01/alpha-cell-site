@@ -532,27 +532,42 @@ description: "128 GB • 4 GB RAM • Dual SIM • Tela 6,71″"
     image:"https://via.placeholder.com/600x600?text=Redmi+A7+Pro+128GB",
     description:""
   },
-  {
-    id:"lg-b220",
-    name:"LG B220 3G",
-    price:249.99,
-    image:"https://via.placeholder.com/600x600?text=LG+B220",
-    description:""
-  },
-  {
-    id:"lg-g360",
-    name:"LG G360 4G",
-    price:320,
-    image:"https://via.placeholder.com/600x600?text=LG+G360",
-    description:""
-  },
-  {
-    id:"nokia-105-4g",
-    name:"Nokia 105 4G",
-    price:299,
-    image:"https://via.placeholder.com/600x600?text=Nokia+105+4G",
-    description:""
-  }
+  
+{
+  id: "celulares-basicos",
+  name: "Celulares Básicos",
+  price: 249.99,
+  image: "./imagens/lg-b220.jpg",
+  description: "Escolha o modelo desejado.",
+  variants: [
+    {
+      name: "LG B220 3G",
+      price: 249.99,
+      image: "./imagens/lg-b220.jpg"
+    },
+    {
+      name: "LG G360 4G",
+      price: 320.00,
+      image: "./imagens/lg-g360.jpg"
+    },
+    {
+      name: "Nokia 105 4G",
+      price: 299.00,
+      image: "./imagens/nokia-105-4g.jpg"
+    },
+    {
+      name: "Nokia 110 4G",
+      price: 249.99,
+      image: "./imagens/nokia-110-4g.jpg"
+    },
+    {
+      name: "Nokia 150 4G",
+      price: 249.99,
+      image: "./imagens/nokia-150-4g.jpg"
+    }
+  ]
+},
+  
 ];
 
 const alphaCatalog=document.getElementById("alphaCatalog");
@@ -623,18 +638,28 @@ alphaCatalogProducts.forEach(p=>{
   const addButton=card.querySelector(".alpha-add-button");
   const buyButton=card.querySelector(".alpha-buy-button");
 
-  function updateProductSelection(){
-    if(select){
-      const selected=p.variants[Number(select.value)];
-      currentPrice=Number(selected.price);
-      currentName=selected.name;
+  
+function updateProductSelection() {
+  if (select) {
+    const selected = p.variants[Number(select.value)];
 
-      priceElement.textContent=currentPrice.toLocaleString("pt-BR",{
-        minimumFractionDigits:2
-      });
+    currentPrice = Number(selected.price);
+    currentName = selected.name;
+
+    priceElement.textContent = currentPrice.toLocaleString("pt-BR", {
+      minimumFractionDigits: 2
+    });
+
+    // Atualiza a foto conforme a versão escolhida
+    const productImage = card.querySelector(".alpha-catalog-img");
+
+    if (productImage && selected.image) {
+      productImage.src = selected.image;
+      productImage.alt = selected.name;
     }
   }
-
+}
+  
   if(select){
     select.addEventListener("change",updateProductSelection);
   }
