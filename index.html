@@ -571,133 +571,128 @@ colors: [
 
 const alphaCatalog=document.getElementById("alphaCatalog");
 
-alphaCatalogProducts.forEach(p=>{
-  const card=document.createElement("article");
-  card.className="alpha-catalog-card";
+alphaCatalogProducts.forEach(p => {
+  const card = document.createElement("article");
+  card.className = "alpha-catalog-card";
 
-  const hasVariants=Array.isArray(p.variants)&&p.variants.length>0;
-  const firstVariant=hasVariants?p.variants[0]:null;
-  let currentPrice=hasVariants?firstVariant.price:p.price;
-  let currentName=hasVariants?firstVariant.name:p.name;
+  const hasVariants = Array.isArray(p.variants) && p.variants.length > 0;
+  const hasOptions = Array.isArray(p.options) && p.options.length > 0;
+  const choices = hasVariants ? p.variants : (hasOptions ? p.options : []);
+  const hasColors = Array.isArray(p.colors) && p.colors.length > 0;
 
-  card.innerHTML=`
-    <img
-      class="alpha-catalog-img"
-      src="${p.image}"
-      alt="${p.name}"
-      onclick="alphaCatalogImage('${p.image}','${p.name.replace(/'/g,"&#39;")}')"
-    >
+  let currentPrice = choices.length ? Number(choices[0].price) : Number(p.price);
+  let currentName = choices.length ? choices[0].name : p.name;
+  let currentColor = hasColors ? p.colors[0] : "";
+
+  card.innerHTML = `
+    <img class="alpha-catalog-img" src="${p.image}" alt="${p.name}">
 
     <div class="alpha-catalog-info">
       <h3>${p.name}</h3>
-
       ${p.description ? `<p>${p.description}</p>` : ""}
 
-      ${
-        hasVariants
-        ? `
-          <label style="display:block;margin:10px 0 6px;font-weight:600;">
-            Escolha a versão:
-          </label>
+      ${choices.length ? `
+        <label style="display:block;margin:10px 0 6px;font-weight:600;">
+          Escolha a versão:
+        </label>
+        <select class="alpha-variant-select"
+          style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+          ${choices.map((v, i) => `
+            <option value="${i}">
+              ${v.name} — R$ ${Number(v.price).toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })}
+            </option>
+          `).join("")}
+        </select>
+      ` : ""}
 
-          <select class="alpha-variant-select"
-                  style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
-            ${p.variants.map((v,i)=>`
-              <option value="${i}">
-                ${v.name} — R$ ${Number(v.price).toLocaleString("pt-BR",{minimumFractionDigits:2})}
-              </option>
-            `).join("")}
-          </select>
-        `
-        : ""
-      }
+      ${hasColors ? `
+        <label style="display:block;margin:10px 0 6px;font-weight:600;">
+          Escolha a cor:
+        </label>
+        <select class="alpha-color-select"
+          style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+          ${p.colors.map(color => `
+            <option value="${color}">${color}</option>
+          `).join("")}
+        </select>
+      ` : ""}
 
       <div class="alpha-catalog-price">
-        R$ <span class="alpha-current-price">
-          ${Number(currentPrice).toLocaleString("pt-BR",{minimumFractionDigits:2})}
-        </span>
+        R$ <span class="alpha-current-price">${currentPrice.toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        })}</span>
       </div>
 
       <div class="alpha-catalog-actions">
-
         <button type="button" class="alpha-add-button">
           🛒 Adicionar ao carrinho
         </button>
-
         <button type="button" class="alpha-buy-button">
           ⚡ Comprar agora
         </button>
-
       </div>
     </div>
   `;
 
-  const select=card.querySelector(".alpha-variant-select");
-  const priceElement=card.querySelector(".alpha-current-price");
-  const addButton=card.querySelector(".alpha-add-button");
-  const buyButton=card.querySelector(".alpha-buy-button");
+  const select = card.querySelector(".alpha-variant-select");
+  const colorSelect = card.querySelector(".alpha-color-select");
+  const priceElement = card.querySelector(".alpha-current-price");
+  const productImage = card.querySelector(".alpha-catalog-img");
 
-  
-function updateProductSelection() {
-  if (select) {
-    const selected = p.variants[Number(select.value)];
+  function updateSelection() {
+    if (select && choices.length) {
+      const selected = choices[Number(select.value)];
+      if (selected) {
+        currentPrice = Number(selected.price);
+        currentName = selected.name;
+        productImage.src = selected.image || p.image;
+        productImage.alt = selected.name;
+      }
+    }
 
-    currentPrice = Number(selected.price);
-    currentName = selected.name;
+    if (colorSelect) currentColor = colorSelect.value;
 
     priceElement.textContent = currentPrice.toLocaleString("pt-BR", {
-      minimumFractionDigits: 2
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     });
-
-    // Atualiza a foto conforme a versão escolhida
-    const productImage = card.querySelector(".alpha-catalog-img");
-
-    if (productImage && selected.image) {
-      productImage.src = selected.image;
-      productImage.alt = selected.name;
-    }
-  }
-}
-  
-  if(select){
-    select.addEventListener("change",updateProductSelection);
   }
 
-  addButton.addEventListener("click",()=>{
-    const productId=hasVariants
-      ? `${p.id}-${currentName.replace(/[^a-zA-Z0-9]+/g,"-").toLowerCase()}`
-      : p.id;
+  if (select) select.addEventListener("change", updateSelection);
+  if (colorSelect) colorSelect.addEventListener("change", updateSelection);
 
-    const productName=hasVariants
-      ? `${p.name} - ${currentName}`
-      : p.name;
-
-    alphaAddProduct(
-      productId,
-      productName,
-      currentPrice
-    );
+  productImage.addEventListener("click", () => {
+    alphaCatalogImage(productImage.src, productImage.alt);
   });
 
-  buyButton.addEventListener("click",()=>{
-    const productId=hasVariants
-      ? `${p.id}-${currentName.replace(/[^a-zA-Z0-9]+/g,"-").toLowerCase()}`
+  function addSelectedProduct(buyNow) {
+    const productId = choices.length
+      ? `${p.id}-${currentName.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}`
       : p.id;
 
-    const productName=hasVariants
-      ? `${p.name} - ${currentName}`
-      : p.name;
+    const productName = `${p.name}${choices.length ? " - " + currentName : ""}${currentColor ? " - " + currentColor : ""}`;
 
-    alphaBuyProduct(
-      productId,
-      productName,
-      currentPrice
-    );
+    if (buyNow) {
+      alphaBuyProduct(productId, productName, currentPrice);
+    } else {
+      alphaAddProduct(productId, productName, currentPrice);
+    }
+  }
+
+  card.querySelector(".alpha-add-button").addEventListener("click", () => {
+    addSelectedProduct(false);
+  });
+
+  card.querySelector(".alpha-buy-button").addEventListener("click", () => {
+    addSelectedProduct(true);
   });
 
   alphaCatalog.appendChild(card);
 });
-
 function alphaCatalogImage(url,name){
   const old=document.getElementById("alphaCatalogPhoto");
   if(old)old.remove();
