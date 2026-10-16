@@ -920,13 +920,97 @@ function alphaBuyProduct(id,name,price,colorId){
   alphaOpenCart();
 }
 
-async function alphaCreatePayment(items){
-const total=items.reduce((s,i)=>s+i.price*i.quantity,0),title=items.length===1?items[0].name:"Pedido Alpha Cell";
-try{
-const r=await fetch("https://flat-sky-c66falpha-cell-pagamentos.alphacell012021.workers.dev/",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({title,unit_price:total,quantity:1})});
-const d=await r.json();if(!r.ok||!d.checkout_url)throw new Error("Pagamento");
-window.location.href=d.checkout_url;
-}catch(e){alert("Não foi possível abrir o pagamento agora. Tente novamente.")}
+async function alphaCreatePayment(items) {
+const campo = id => {
+const el = document.getElementById(id);
+return el ? el.value.trim() : "";
+};
+
+const cliente_nome = campo("checkoutNome");
+const cliente_cpf = campo("checkoutCpf");
+const cliente_telefone = campo("checkoutTelefone");
+const cliente_email = campo("checkoutEmail");
+const cep = campo("checkoutCep");
+const endereco = [
+campo("checkoutEndereco"),
+campo("checkoutNumero"),
+campo("checkoutComplemento"),
+campo("checkoutBairro"),
+campo("checkoutCidade"),
+campo("checkoutEstado"),
+cep
+].filter(Boolean).join(", ");
+
+if (!cliente_nome || !cliente_cpf || !cliente_telefone ||
+!cliente_email || !cep || !campo("checkoutEndereco") ||
+!campo("checkoutNumero") || !campo("checkoutBairro") ||
+!campo("checkoutCidade") || !campo("checkoutEstado")) {
+alert("Preencha todos os dados obrigatórios do cliente e da entrega.");
+return;
+}
+
+if (!Array.isArray(items) || !items.length) {
+alert("Seu carrinho está vazio.");
+return;
+}
+
+const produtos = items.map(i => ({
+id: i.id || "",
+title: i.name,
+unit_price: Number(i.price),
+quantity: Number(i.quantity),
+color: i.color || ""
+}));
+
+if (produtos.some(i =>
+!i.title || !Number.isFinite(i.unit_price) ||
+i.unit_price <= 0 || !Number.isInteger(i.quantity) ||
+i.quantity <= 0)) {
+alert("Confira os produtos, preços e quantidades.");
+return;
+}
+
+const total = Number(
+produtos.reduce((s, i) => s + i.unit_price * i.quantity, 0).toFixed(2)
+);
+
+const title = produtos.length === 1
+? produtos[0].title
+: "Pedido Alpha Cell";
+
+try {
+const r = await fetch(
+"https://flat-sky-c66falpha-cell-pagamentos.alphacell012021.workers.dev/",
+{
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({
+title,
+unit_price: total,
+quantity: 1,
+items: produtos,
+cliente_nome,
+cliente_cpf,
+cliente_telefone,
+cliente_email,
+endereco,
+cep
+})
+}
+);
+
+const d = await r.json();
+
+if (!r.ok || !d.checkout_url) {
+  throw new Error(d.error || "Não foi possível criar o pagamento.");
+}
+
+window.location.href = d.checkout_url;
+
+} catch (e) {
+console.error("Erro no checkout Alpha Cell:", e);
+alert("Não foi possível abrir o pagamento. Confira os dados e tente novamente.");
+}
 }
 function alphaOpenProduct(id){
 const p=ALPHA_PRODUCTS[id];if(!p)return;
