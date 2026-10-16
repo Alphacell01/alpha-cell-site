@@ -916,14 +916,10 @@ function alphaAddProduct(id,name,price,colorId){
 }
 
 function alphaBuyProduct(id,name,price,colorId){
-  alphaCreatePayment([{
-    id:id,
-    name:name,
-    price:Number(price),
-    quantity:1,
-    color:colorId||""
-  }]);
+  alphaAddProduct(id,name,price,colorId);
+  alphaOpenCart();
 }
+
 async function alphaCreatePayment(items){
 const total=items.reduce((s,i)=>s+i.price*i.quantity,0),title=items.length===1?items[0].name:"Pedido Alpha Cell";
 try{
