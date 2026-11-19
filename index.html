@@ -710,14 +710,29 @@ alphaCatalogProducts.forEach(p => {
   const card = document.createElement("article");
   card.className = "alpha-catalog-card";
 
-  const hasVariants = Array.isArray(p.variants) && p.variants.length > 0;
-  const hasOptions = Array.isArray(p.options) && p.options.length > 0;
-  const choices = hasVariants ? p.variants : (hasOptions ? p.options : []);
-  const hasColors = Array.isArray(p.colors) && p.colors.length > 0;
+const hasVariants = Array.isArray(p.variants) && p.variants.length > 0;
+const hasOptions = Array.isArray(p.options) && p.options.length > 0;
+const choices = hasVariants ? p.variants : (hasOptions ? p.options : []);
 
-  let currentPrice = choices.length ? Number(choices[0].price) : Number(p.price);
-  let currentName = choices.length ? choices[0].name : p.name;
-  let currentColor = hasColors ? p.colors[0] : "";
+const hasColors = choices.length && Array.isArray(choices[0].colors)
+  ? true
+  : Array.isArray(p.colors) && p.colors.length > 0;
+
+let currentColorOptions = choices.length && Array.isArray(choices[0].colors)
+  ? choices[0].colors
+  : (Array.isArray(p.colors) ? p.colors : []);
+
+let currentColor = currentColorOptions.length
+  ? (typeof currentColorOptions[0] === "string" ? currentColorOptions[0] : currentColorOptions[0].name)
+  : "";
+
+let currentPrice = choices.length
+  ? Number(choices[0].price ?? currentColorOptions[0]?.price ?? p.price)
+  : Number(p.price);
+
+let currentName = choices.length ? choices[0].name : p.name;
+  
+  
 
   card.innerHTML = `
     <img class="alpha-catalog-img" src="${p.image}" alt="${p.name}">
@@ -734,7 +749,7 @@ alphaCatalogProducts.forEach(p => {
           style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
           ${choices.map((v, i) => `
             <option value="${i}">
-              ${v.name} — R$ ${Number(v.price).toLocaleString("pt-BR", {
+              ${v.name} — R$ $Number(v.price ?? (v.colors && v.colors[0] ? v.colors[0].price : 0)) .toLocaleString("pt-BR", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
               })}
@@ -743,17 +758,21 @@ alphaCatalogProducts.forEach(p => {
         </select>
       ` : ""}
 
-      ${hasColors ? `
-        <label style="display:block;margin:10px 0 6px;font-weight:600;">
-          Escolha a cor:
-        </label>
-        <select class="alpha-color-select"
-          style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
-          ${p.colors.map(color => `
-            <option value="${color}">${color}</option>
-          `).join("")}
-        </select>
-      ` : ""}
+${hasColors ? `
+  <label style="display:block;margin:10px 0 6px;font-weight:600;">
+    Escolha a cor:
+  </label>
+  <select class="alpha-color-select"
+    style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+    ${currentColorOptions.map((color, i) => `
+      <option value="${i}">
+        ${typeof color === "string" ? color : color.name}
+      </option>
+    `).join("")}
+  </select>
+` : ""}
+
+      
 
       <div class="alpha-catalog-price">
         R$ <span class="alpha-current-price">${currentPrice.toLocaleString("pt-BR", {
@@ -778,31 +797,60 @@ alphaCatalogProducts.forEach(p => {
   const priceElement = card.querySelector(".alpha-current-price");
   const productImage = card.querySelector(".alpha-catalog-img");
 
-  function updateSelection() {
-    if (select && choices.length) {
-      const selected = choices[Number(select.value)];
-      if (selected) {
-        currentPrice = Number(selected.price);
-        currentName = selected.name;
-        productImage.src = selected.image || p.image;
-        productImage.alt = selected.name;
+  
+function updateSelection() {
+  const selected = select && choices.length
+    ? choices[Number(select.value)]
+    : null;
+
+  if (selected) {
+    currentName = selected.name;
+    productImage.src = selected.image || p.image;
+    productImage.alt = selected.name;
+
+    const colorIndex = colorSelect
+      ? Number(colorSelect.value)
+      : 0;
+
+    if (Array.isArray(selected.colors) && selected.colors.length) {
+      const selectedColor = selected.colors[colorIndex] || selected.colors[0];
+
+      currentColor = typeof selectedColor === "string"
+        ? selectedColor
+        : selectedColor.name;
+
+      currentPrice = Number(
+        selected.price ?? selectedColor.price ?? p.price
+      );
+    } else {
+      currentPrice = Number(selected.price ?? p.price);
+
+      if (colorSelect) {
+        currentColor = colorSelect.value;
       }
     }
-
-    if (colorSelect) currentColor = colorSelect.value;
-
-    priceElement.textContent = currentPrice.toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
+  } else if (colorSelect) {
+    currentColor = colorSelect.value;
   }
 
-  if (select) select.addEventListener("change", updateSelection);
+  priceElement.textContent = currentPrice.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
   if (colorSelect) colorSelect.addEventListener("change", updateSelection);
 
   productImage.addEventListener("click", () => {
     alphaCatalogImage(productImage.src, productImage.alt);
   });
+  }
+
+if (select) select.addEventListener("change", updateSelection);
+if (colorSelect) colorSelect.addEventListener("change", updateSelection);
+
+productImage.addEventListener("click", () => {
+  alphaCatalogImage(productImage.src, productImage.alt);
+});
 
   function addSelectedProduct(buyNow) {
     const productId = choices.length
