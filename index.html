@@ -749,17 +749,16 @@ let currentName = choices.length ? choices[0].name : p.name;
         <label style="display:block;margin:10px 0 6px;font-weight:600;">
           Escolha a versão:
         </label>
-        <select class="alpha-variant-select"
-          style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
-          ${choices.map((v, i) => `
-            <option value="${i}">
-              ${v.name} — R$ $Number(v.price ?? (v.colors && v.colors[0] ? v.colors[0].price : 0)) .toLocaleString("pt-BR", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-              })}
-            </option>
-          `).join("")}
-        </select>
+        
+<select class="alpha-variant-select"
+  style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+  ${choices.map((v, i) => `
+    <option value="${i}">
+      ${v.name}
+    </option>
+  `).join("")}
+</select>
+
       ` : ""}
 
 ${hasColors ? `
