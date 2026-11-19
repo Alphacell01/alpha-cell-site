@@ -726,10 +726,14 @@ let currentColor = currentColorOptions.length
   ? (typeof currentColorOptions[0] === "string" ? currentColorOptions[0] : currentColorOptions[0].name)
   : "";
 
-let currentPrice = choices.length
-  ? Number(choices[0].price ?? currentColorOptions[0]?.price ?? p.price)
-  : Number(p.price);
 
+let currentPrice = Number(
+  (currentColorOptions[0] && typeof currentColorOptions[0] === "object"
+    ? currentColorOptions[0].price
+    : undefined)
+  ?? (choices.length ? choices[0].price : undefined)
+  ?? p.price
+);
 let currentName = choices.length ? choices[0].name : p.name;
   
   
@@ -798,6 +802,7 @@ ${hasColors ? `
   const productImage = card.querySelector(".alpha-catalog-img");
 
   
+
 function updateSelection() {
   const selected = select && choices.length
     ? choices[Number(select.value)]
@@ -807,43 +812,39 @@ function updateSelection() {
     currentName = selected.name;
     productImage.src = selected.image || p.image;
     productImage.alt = selected.name;
-
-    const colorIndex = colorSelect
-      ? Number(colorSelect.value)
-      : 0;
-
-    if (Array.isArray(selected.colors) && selected.colors.length) {
-      const selectedColor = selected.colors[colorIndex] || selected.colors[0];
-
-      currentColor = typeof selectedColor === "string"
-        ? selectedColor
-        : selectedColor.name;
-
-      currentPrice = Number(
-        selected.price ?? selectedColor.price ?? p.price
-      );
-    } else {
-      currentPrice = Number(selected.price ?? p.price);
-
-      if (colorSelect) {
-        currentColor = colorSelect.value;
-      }
-    }
-  } else if (colorSelect) {
-    currentColor = colorSelect.value;
   }
+
+  const colorOptions = selected && Array.isArray(selected.colors)
+    ? selected.colors
+    : (Array.isArray(p.colors) ? p.colors : []);
+
+  const colorIndex = colorSelect
+    ? Number(colorSelect.value)
+    : 0;
+
+  const selectedColor = colorOptions.length
+    ? colorOptions[colorIndex] || colorOptions[0]
+    : null;
+
+  if (selectedColor) {
+    currentColor = typeof selectedColor === "string"
+      ? selectedColor
+      : selectedColor.name;
+  }
+
+  currentPrice = Number(
+    (selectedColor && typeof selectedColor === "object"
+      ? selectedColor.price
+      : undefined)
+    ?? (selected ? selected.price : undefined)
+    ?? p.price
+  );
 
   priceElement.textContent = currentPrice.toLocaleString("pt-BR", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });
 }
-  if (colorSelect) colorSelect.addEventListener("change", updateSelection);
-
-  productImage.addEventListener("click", () => {
-    alphaCatalogImage(productImage.src, productImage.alt);
-  });
-  }
 
 if (select) select.addEventListener("change", updateSelection);
 if (colorSelect) colorSelect.addEventListener("change", updateSelection);
@@ -851,24 +852,21 @@ if (colorSelect) colorSelect.addEventListener("change", updateSelection);
 productImage.addEventListener("click", () => {
   alphaCatalogImage(productImage.src, productImage.alt);
 });
+  
 
   function addSelectedProduct(buyNow) {
-    const productId = choices.length
-      ? `${p.id}-${currentName.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}`
-      : p.id;
+  const productId = choices.length
+    ? `${p.id}-${currentName.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}`
+    : p.id;
 
-    const productName = `${p.name}${choices.length ? " - " + currentName : ""}${currentColor ? " - " + currentColor : ""}`;
+  const productName = `${p.name}${choices.length ? " - " + currentName : ""}${currentColor ? " - " + currentColor : ""}`;
 
-    if (buyNow) {
-      alphaBuyProduct(productId, productName, currentPrice);
-    } else {
-      alphaAddProduct(productId, productName, currentPrice);
-    }
+  if (buyNow) {
+    alphaBuyProduct(productId, productName, currentPrice);
+  } else {
+    alphaAddToCart(productId, productName, currentPrice);
   }
-
-  card.querySelector(".alpha-add-button").addEventListener("click", () => {
-    addSelectedProduct(false);
-  });
+    }
 
   card.querySelector(".alpha-buy-button").addEventListener("click", () => {
     addSelectedProduct(true);
