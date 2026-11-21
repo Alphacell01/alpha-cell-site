@@ -920,6 +920,7 @@ function alphaCatalogImage(url, name, images = []) {
 
   document.body.appendChild(box);
 
+  
   const imagem = box.querySelector("#fotoGaleria");
   const contador = box.querySelector("#contadorFotos");
 
@@ -939,6 +940,27 @@ function alphaCatalogImage(url, name, images = []) {
   };
 
   mostrarFoto();
+
+  let inicioToque = 0;
+
+  imagem.addEventListener("touchstart", (e) => {
+    inicioToque = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  imagem.addEventListener("touchend", (e) => {
+    const fimToque = e.changedTouches[0].screenX;
+    const distancia = fimToque - inicioToque;
+
+    if (Math.abs(distancia) < 40) return;
+
+    if (distancia < 0) {
+      indice = (indice + 1) % fotos.length;
+    } else {
+      indice = (indice - 1 + fotos.length) % fotos.length;
+    }
+
+    mostrarFoto();
+  }, { passive: true });
 }
   
 </script>
