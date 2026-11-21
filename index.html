@@ -1100,13 +1100,104 @@ console.error("Erro no checkout Alpha Cell:", e);
 alert("Não foi possível abrir o pagamento. Confira os dados e tente novamente.");
 }
 }
+
 function alphaOpenProduct(id){
-const p=ALPHA_PRODUCTS[id];if(!p)return;
-const old=document.getElementById("productModal");if(old)old.remove();
-const m=document.createElement("div");m.id="productModal";m.className="modal-backdrop";
-m.innerHTML='<div class="modal-box"><button class="modal-close" onclick="document.getElementById(\'productModal\').remove()">✕ Fechar</button><h2>'+p.name+'</h2><p class="muted">Galeria do produto</p><div class="modal-gallery">'+p.images.map(s=>'<img src="'+s+'" alt="'+p.name+'">').join("")+'</div></div>';
-document.body.appendChild(m);
+  const p = ALPHA_PRODUCTS[id];
+  if(!p) return;
+
+  const old = document.getElementById("productModal");
+  if(old) old.remove();
+
+  const fotos = Array.isArray(p.images) && p.images.length
+    ? p.images
+    : [];
+
+  const m = document.createElement("div");
+  m.id = "productModal";
+  m.className = "modal-backdrop";
+
+  m.dataset.productId = id;
+  m.dataset.photoIndex = "0";
+
+  m.innerHTML = `
+    <div class="modal-box">
+      <button class="modal-close"
+        onclick="document.getElementById('productModal').remove()">
+        ✕ Fechar
+      </button>
+
+      <h2>${p.name}</h2>
+      <p class="muted">Galeria do produto</p>
+
+      <div style="position:relative;text-align:center;">
+        <img id="alphaMainPhoto"
+          src="${fotos[0] || ""}"
+          alt="${p.name}"
+          style="width:100%;max-height:420px;object-fit:contain;background:#fff;border-radius:12px;">
+
+        <button onclick="alphaChangeProductPhoto(-1)"
+          style="position:absolute;left:5px;top:45%;padding:12px;background:#b86f5d;color:white;border:0;border-radius:50%;font-size:20px;">
+          ❮
+        </button>
+
+        <button onclick="alphaChangeProductPhoto(1)"
+          style="position:absolute;right:5px;top:45%;padding:12px;background:#b86f5d;color:white;border:0;border-radius:50%;font-size:20px;">
+          ❯
+        </button>
+      </div>
+
+      <div id="alphaPhotoThumbs"
+        style="display:flex;gap:8px;overflow-x:auto;padding:12px 0;">
+        ${fotos.map((foto,i)=>`
+          <img src="${foto}"
+            onclick="alphaSelectProductPhoto(${i})"
+            style="width:75px;height:75px;object-fit:cover;border-radius:8px;border:2px solid ${i===0?'#b86f5d':'#555'};cursor:pointer;flex-shrink:0;">
+        `).join("")}
+      </div>
+
+      <p id="alphaPhotoCounter" style="text-align:center;color:#ccc;">
+        ${fotos.length ? "1 / "+fotos.length : "Sem fotos disponíveis"}
+      </p>
+    </div>
+  `;
+
+  document.body.appendChild(m);
 }
+
+function alphaChangeProductPhoto(step){
+  const m = document.getElementById("productModal");
+  if(!m) return;
+
+  const p = ALPHA_PRODUCTS[m.dataset.productId];
+  if(!p || !p.images || !p.images.length) return;
+
+  let i = Number(m.dataset.photoIndex || 0);
+  i = (i + step + p.images.length) % p.images.length;
+
+  alphaSelectProductPhoto(i);
+}
+
+function alphaSelectProductPhoto(index){
+  const m = document.getElementById("productModal");
+  if(!m) return;
+
+  const p = ALPHA_PRODUCTS[m.dataset.productId];
+  if(!p || !p.images || !p.images[index]) return;
+
+  m.dataset.photoIndex = index;
+
+  document.getElementById("alphaMainPhoto").src = p.images[index];
+
+  document.getElementById("alphaPhotoCounter").textContent =
+    (index + 1) + " / " + p.images.length;
+
+  const thumbs = document.querySelectorAll("#alphaPhotoThumbs img");
+
+  thumbs.forEach((img,i)=>{
+    img.style.borderColor = i === index ? "#b86f5d" : "#555";
+  });
+}
+  
 function alphaOpenCart(){
 const cart=alphaGetCart();if(!cart.length){alert("🛒 Seu carrinho está vazio.");return}
 const old=document.getElementById("checkoutBox");if(old)old.remove();
