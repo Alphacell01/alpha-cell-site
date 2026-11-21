@@ -873,35 +873,74 @@ productImage.addEventListener("click", () => {
 
   alphaCatalog.appendChild(card);
 });
-function alphaCatalogImage(url,name){
-  const old=document.getElementById("alphaCatalogPhoto");
-  if(old)old.remove();
 
-  const box=document.createElement("div");
-  box.id="alphaCatalogPhoto";
-  box.className="modal-backdrop";
+function alphaCatalogImage(url, name, images = []) {
+  const old = document.getElementById("alphaCatalogPhoto");
+  if (old) old.remove();
 
-  box.innerHTML=`
+  const fotos = [...new Set([url, ...(Array.isArray(images) ? images : [])].filter(Boolean))];
+
+  let indice = 0;
+
+  const box = document.createElement("div");
+  box.id = "alphaCatalogPhoto";
+  box.className = "modal-backdrop";
+
+  box.innerHTML = `
     <div class="modal-box">
-      <button
-        class="modal-close"
+      <button class="modal-close"
         onclick="document.getElementById('alphaCatalogPhoto').remove()">
         ✕ Fechar
       </button>
 
       <h2>${name}</h2>
 
-      <div style="margin-top:15px">
-        <img
-          src="${url}"
+      <div style="display:flex;align-items:center;gap:8px;margin-top:15px">
+
+        <button id="fotoAnterior"
+          style="padding:12px;font-size:24px;border:0;border-radius:8px">
+          ❮
+        </button>
+
+        <img id="fotoGaleria"
+          src="${fotos[0]}"
           alt="${name}"
           style="width:100%;max-height:70vh;object-fit:contain;background:#fff;border-radius:15px">
+
+        <button id="fotoProxima"
+          style="padding:12px;font-size:24px;border:0;border-radius:8px">
+          ❯
+        </button>
+
       </div>
+
+      <p id="contadorFotos" style="text-align:center"></p>
     </div>
   `;
 
   document.body.appendChild(box);
+
+  const imagem = box.querySelector("#fotoGaleria");
+  const contador = box.querySelector("#contadorFotos");
+
+  function mostrarFoto() {
+    imagem.src = fotos[indice];
+    contador.textContent = `${indice + 1} / ${fotos.length}`;
+  }
+
+  box.querySelector("#fotoAnterior").onclick = () => {
+    indice = (indice - 1 + fotos.length) % fotos.length;
+    mostrarFoto();
+  };
+
+  box.querySelector("#fotoProxima").onclick = () => {
+    indice = (indice + 1) % fotos.length;
+    mostrarFoto();
+  };
+
+  mostrarFoto();
 }
+  
 </script>
 </section>
 
