@@ -85,6 +85,27 @@ footer{margin-top:40px;padding:24px 0;border-top:1px solid #292929;color:#999;fo
     >
 
   </div>
+  
+<script>
+(function() {
+  const slides = document.querySelectorAll(
+    "#alphaBannerCarousel .alpha-banner-slide"
+  );
+
+  if (slides.length < 2) return;
+
+  let atual = 0;
+
+  setInterval(function() {
+    slides[atual].style.display = "none";
+
+    atual = (atual + 1) % slides.length;
+
+    slides[atual].style.display = "block";
+  }, 5000);
+})();
+</script>
+  
 </section>
 <main class="wrap">
   <div class="quick-actions">
