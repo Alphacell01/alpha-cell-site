@@ -848,9 +848,34 @@ function updateSelection() {
 if (select) select.addEventListener("change", updateSelection);
 if (colorSelect) colorSelect.addEventListener("change", updateSelection);
 
-productImage.addEventListener("click", () => {
-  alphaCatalogImage(productImage.src, productImage.alt, p.images);
-});
+const fotosProduto = [...new Set([
+  p.image,
+  ...(Array.isArray(p.images) ? p.images : [])
+].filter(Boolean))];
+
+let fotoAtual = 0;
+
+productImage.style.touchAction = "pan-y";
+
+productImage.addEventListener("touchstart", (e) => {
+  productImage.dataset.inicioX = e.touches[0].clientX;
+}, { passive: true });
+
+productImage.addEventListener("touchend", (e) => {
+  const inicio = Number(productImage.dataset.inicioX);
+  const fim = e.changedTouches[0].clientX;
+  const distancia = fim - inicio;
+
+  if (Math.abs(distancia) < 40 || fotosProduto.length < 2) return;
+
+  if (distancia < 0) {
+    fotoAtual = (fotoAtual + 1) % fotosProduto.length;
+  } else {
+    fotoAtual = (fotoAtual - 1 + fotosProduto.length) % fotosProduto.length;
+  }
+
+  productImage.src = fotosProduto[fotoAtual];
+}, { passive: true });
   
 
   function addSelectedProduct(buyNow) {
