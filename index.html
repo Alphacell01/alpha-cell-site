@@ -1301,14 +1301,34 @@ function alphaOpenProduct(id){
         </button>
       </div>
 
-      <div id="alphaPhotoThumbs"
-        style="display:flex;gap:8px;overflow-x:auto;padding:12px 0;">
-        ${fotos.map((foto,i)=>`
-          <img src="${foto}"
-            onclick="alphaSelectProductPhoto(${i})"
-            style="width:75px;height:75px;object-fit:cover;border-radius:8px;border:2px solid ${i===0?'#b86f5d':'#555'};cursor:pointer;flex-shrink:0;">
-        `).join("")}
-      </div>
+      <div id="alphaPhotoDots"
+style="display:${fotos.length > 1 ? 'flex' : 'none'};justify-content:center;gap:9px;padding:12px 0;">
+
+${fotos.map((foto,i)=>`
+<button
+type="button"
+onclick="alphaSelectProductPhoto(${i})"
+style="
+width:9px;
+height:9px;
+padding:0;
+border:0;
+border-radius:50%;
+background:${i===0?'#b86f5d':'#777'};
+cursor:pointer;">
+</button>
+`).join("")}
+
+</div>
+
+<div id="alphaPhotoThumbs"
+style="display:flex;gap:8px;overflow-x:auto;padding:12px 0;">
+${fotos.map((foto,i)=>`
+<img src="${foto}"
+onclick="alphaSelectProductPhoto(${i})"
+style="width:75px;height:75px;object-fit:cover;border-radius:8px;border:2px solid ${i===0?'#b86f5d':'#555'};cursor:pointer;flex-shrink:0;">
+`).join("")}
+</div>
 
       <p id="alphaPhotoCounter" style="text-align:center;color:#ccc;">
         ${fotos.length ? "1 / "+fotos.length : "Sem fotos disponíveis"}
@@ -1350,7 +1370,14 @@ function alphaSelectProductPhoto(index){
 
   thumbs.forEach((img,i)=>{
     img.style.borderColor = i === index ? "#b86f5d" : "#555";
+    
   });
+  const dots = document.querySelectorAll("#alphaPhotoDots button");
+
+dots.forEach((dot,i)=>{
+  dot.style.backgroundColor = i === index ? "#b86f5d" : "#777";
+});
+  
 }
   
 function alphaOpenCart(){
