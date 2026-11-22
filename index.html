@@ -43,6 +43,22 @@ footer{margin-top:40px;padding:24px 0;border-top:1px solid #292929;color:#999;fo
 .modal-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;clear:both;margin-top:15px}.modal-gallery img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#fff;border-radius:14px}
 @media(max-width:650px){.wrap{padding:14px}.heroText{padding:20px}.heroText h1{font-size:25px}.ctas{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.products-grid{grid-template-columns:1fr}}
 @media(max-width:430px){.cards{grid-template-columns:1fr}.shop-actions{flex-direction:column}}
+  .quick-actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin: 0 0 16px;
+}
+
+.quick-actions .btn {
+  flex: 1;
+  width: 50%;
+  margin: 0;
+  padding: 12px 5px;
+  text-align: center;
+  font-size: 14px;
+  box-sizing: border-box;
+}
 </style>
 </head>
 <body>
@@ -55,24 +71,20 @@ footer{margin-top:40px;padding:24px 0;border-top:1px solid #292929;color:#999;fo
   <img src="file_00000000bd0c820e92d852dc20119168.png" alt="Alpha Cell Assistência">
 </section>
 <main class="wrap">
+  <div class="quick-actions">
+  <a class="btn dark" href="https://wa.me/5518991913982?text=Ol%C3%A1%20Alpha%20Cell!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank">💬 Falar no WhatsApp</a>
+
+  <a class="btn dark" href="https://www.google.com/maps/search/?api=1&query=Av.%20Padre%20Jo%C3%A3o%20Braen%2C%2063%20Luiziania%2C%20SP" target="_blank">📍 Como chegar</a>
+  </div>
 <section class="section offer">
 <h2>🔥 Ofertas e novidades</h2>
 <p class="muted">Confira nossas promoções, acessórios, películas, capinhas, carregadores e serviços.</p>
 <a class="btn orange" href="https://www.instagram.com/alpha_cell_01/" target="_blank">📸 Ver novidades no Instagram</a>
 </section>
-<div class="ctas">
-<a class="btn orange" href="#orcamento">📱 Solicitar orçamento</a>
-<a class="btn dark" href="https://wa.me/5518991913982?text=Ol%C3%A1%20Alpha%20Cell!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank">💬 Falar no WhatsApp</a>
-<a class="btn dark" href="https://www.google.com/maps/search/?api=1&query=Av.%20Padre%20Jo%C3%A3o%20Braen%2C%2063%20Luizi%C3%A2nia%2C%20SP" target="_blank">📍 Como chegar</a>
-<a class="btn dark" href="https://www.instagram.com/alpha_cell_01/" target="_blank">📸 Instagram</a>
-</div>
-
-
 <section class="section" id="produtos">
 <h2>📱 Smartphones</h2>
 <p class="muted">Escolha a cor, veja as fotos e adicione o aparelho ao carrinho.</p>
 <div class="products-grid" id="alphaCatalog">
-
 <style>
 .alpha-catalog-card{
   overflow:hidden;
