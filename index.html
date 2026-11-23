@@ -666,12 +666,20 @@ colors: [
   description: "128 GB • 4 GB RAM"
 },
   
+
 {
   id: "notebooks-alpha",
   name: "NOTEBOOKS - ESCOLHA SEU MODELO",
+  image: "IMG-20261123-WA0243.jpg",
+  images: [
+    "IMG-20261123-WA0243.jpg",
+    "IMG-20261123-WA0244.jpg",
+    "IMG-20261123-WA0246.jpg",
+    "IMG-20261007-WA0253.jpg"
+  ],
   variants: [
     {
-      name: "ASUS E150AF",
+      name: "NOTEBOOK ASUS E150AF",
       price: 4999.00,
       image: "IMG-20261007-WA0253.jpg",
       description: "Ryzen 5 | RAM 16GB | SSD 512GB | Linux"
@@ -679,27 +687,30 @@ colors: [
     {
       name: "Samsung Galaxy Book4 750XGK",
       price: 3190.00,
-      image: "",
-      description: "Core i5-1335U 13ª geração | RAM 8GB 4267MHz | SSD 512GB | Intel Iris Xe"
+      image: "IMG-20261123-WA0243.jpg",
+      description: "Intel Core i5-1335U 13ª geração | RAM 8GB 4267MHz | SSD NVMe 512GB | Intel Iris Xe Graphics"
     },
     {
       name: "Lenovo IdeaPad",
       price: 3770.00,
-      image: "",
-      description: "Core i3-1315U 13ª geração | RAM 8GB 3200MHz | SSD 256GB | Intel UHD"
+      image: "IMG-20261123-WA0244.jpg",
+      description: "Intel Core i3-1315U 13ª geração | RAM 8GB 3200MHz | SSD NVMe 256GB | Intel UHD Graphics"
     },
     {
       name: "Acer Aspire A514-54",
       price: 3190.00,
-      image: "",
-      description: "Core i5-1135G7 11ª geração | RAM 8GB 2667MHz | SSD 256GB | Intel Iris Xe"
+      image: "IMG-20261123-WA0246.jpg",
+      description: "Intel Core i5-1135G7 11ª geração | RAM 8GB 2667MHz | SSD NVMe 256GB | Intel Iris Xe Graphics"
     },
     {
       name: "Dell Latitude 5420",
       price: 3770.00,
-      image: "",
-      description: "Core i5-1135G7 11ª geração | RAM 8GB 3200MHz | SSD 256GB | Intel Iris Xe"
+      image: "IMG-20261123-WA0243.jpg",
+      description: "Intel Core i5-1135G7 11ª geração | RAM 8GB 3200MHz | SSD NVMe 256GB | Intel Iris Xe Graphics"
     }
+  ]
+},
+  
   ]
 }
   
@@ -843,6 +854,9 @@ let currentPrice = Number(
   ?? p.price
 );
 let currentName = choices.length ? choices[0].name : p.name;
+  let currentDescription = choices.length
+  ? choices[0].description
+  : p.description;
   
   
 
@@ -864,8 +878,8 @@ style="width:9px;height:9px;padding:0;border:0;border-radius:50%;background:${i=
 </div>
 
     <div class="alpha-catalog-info">
-      <h3>${p.name}</h3>
-      ${p.description ? `<p>${p.description}</p>` : ""}
+  <h3 class="alpha-current-name">${currentName}</h3>
+  <p class="alpha-current-description">${currentDescription || ""}</p>
 
       ${choices.length ? `
         <label style="display:block;margin:10px 0 6px;font-weight:600;">
@@ -931,6 +945,13 @@ function updateSelection() {
 
   if (selected) {
     currentName = selected.name;
+    currentDescription = selected.description || "";
+
+const nameElement = card.querySelector(".alpha-current-name");
+const descriptionElement = card.querySelector(".alpha-current-description");
+
+if (nameElement) nameElement.textContent = currentName;
+if (descriptionElement) descriptionElement.textContent = currentDescription;
     productImage.src = selected.image || p.image;
     productImage.alt = selected.name;
   }
