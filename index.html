@@ -810,6 +810,20 @@ let currentName = choices.length ? choices[0].name : p.name;
   card.innerHTML = `
     <img class="alpha-catalog-img" src="${p.image}" alt="${p.name}">
 
+<div class="alpha-catalog-dots"
+style="display:${(p.images || []).length > 1 ? 'flex' : 'none'};justify-content:center;gap:8px;padding:8px 0;">
+
+${[...new Set([p.image,...(Array.isArray(p.images)?p.images:[])])].filter(Boolean).map((foto,i)=>`
+<button
+type="button"
+class="alpha-catalog-dot"
+data-index="${i}"
+style="width:9px;height:9px;padding:0;border:0;border-radius:50%;background:${i===0?'#b86f5d':'#777'};cursor:pointer;">
+</button>
+`).join("")}
+
+</div>
+
     <div class="alpha-catalog-info">
       <h3>${p.name}</h3>
       ${p.description ? `<p>${p.description}</p>` : ""}
@@ -923,6 +937,24 @@ const fotosProduto = [...new Set([
 ].filter(Boolean))];
 
 let fotoAtual = 0;
+  const dotsProduto = card.querySelectorAll(".alpha-catalog-dot");
+
+function atualizarBolinhasProduto() {
+  dotsProduto.forEach((dot, i) => {
+    dot.style.backgroundColor =
+      i === fotoAtual ? "#b86f5d" : "#777";
+  });
+}
+
+dotsProduto.forEach((dot, i) => {
+  dot.addEventListener("click", () => {
+    fotoAtual = i;
+    productImage.src = fotosProduto[fotoAtual];
+    atualizarBolinhasProduto();
+  });
+});
+
+atualizarBolinhasProduto();
 
 productImage.style.touchAction = "pan-y";
 
@@ -944,6 +976,7 @@ productImage.addEventListener("touchend", (e) => {
   }
 
   productImage.src = fotosProduto[fotoAtual];
+  atualizarBolinhasProduto();
 }, { passive: true });
   
 
