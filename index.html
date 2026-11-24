@@ -1050,7 +1050,7 @@ function updateSelection() {
     : null;
 
   if (selected) {
-    currentName = selected.name;
+    currentName = p.name;
     currentDescription = selected.description || "";
 
 const nameElement = card.querySelector(".alpha-current-name");
@@ -1059,7 +1059,7 @@ const descriptionElement = card.querySelector(".alpha-current-description");
 if (nameElement) nameElement.textContent = currentName;
 if (descriptionElement) descriptionElement.textContent = currentDescription;
     productImage.src = selected.image || p.image;
-    productImage.alt = selected.name;
+    productImage.alt = p.name;
   }
 
   const colorOptions = selected && Array.isArray(selected.colors)
