@@ -1163,7 +1163,9 @@ productImage.addEventListener("touchend", (e) => {
   card.querySelector(".alpha-buy-button").addEventListener("click", () => {
     addSelectedProduct(true);
   });
-
+card.querySelector(".alpha-add-button").addEventListener("click", () => {
+  addSelectedProduct(false);
+});
   alphaCatalog.appendChild(card);
 });
 
