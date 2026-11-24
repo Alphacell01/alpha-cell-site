@@ -1359,6 +1359,40 @@ function alphaAddProduct(id,name,price,colorId){
   }
 }
 
+function alphaChangeCartItem(index, change) {
+  const cart = alphaGetCart();
+
+  if (!cart[index]) return;
+
+  cart[index].quantity = (cart[index].quantity || 1) + change;
+
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
+  }
+
+  alphaSaveCart(cart);
+  alphaUpdateCartCount();
+  alphaOpenCart();
+}
+
+function alphaRemoveCartItem(index) {
+  const cart = alphaGetCart();
+
+  if (!cart[index]) return;
+
+  cart.splice(index, 1);
+
+  alphaSaveCart(cart);
+  alphaUpdateCartCount();
+
+  const box = document.getElementById("checkoutBox");
+  if (box) box.remove();
+
+  if (cart.length) {
+    alphaOpenCart();
+  }
+}
+  
 function alphaBuyProduct(id,name,price,colorId){
   alphaAddProduct(id,name,price,colorId);
   alphaOpenCart();
