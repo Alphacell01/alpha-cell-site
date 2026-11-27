@@ -70,6 +70,7 @@ footer{margin-top:40px;padding:24px 0;border-top:1px solid #292929;color:#999;fo
 <section class="capa">
   <div id="alphaBannerCarousel" style="position:relative;width:100%;overflow:hidden;">
 
+    <!-- BANNER 1 - PRINCIPAL ALPHA CELL -->
     <img
       class="alpha-banner-slide"
       src="file_000000007aec820e868c36313b7092e7.png"
@@ -77,6 +78,15 @@ footer{margin-top:40px;padding:24px 0;border-top:1px solid #292929;color:#999;fo
       style="display:block;width:100%;height:auto;"
     >
 
+    <!-- BANNER 2 - CELULARES NO BOLETO EM ATÉ 6X -->
+    <img
+      class="alpha-banner-slide"
+      src="file_000000008a08820e9248e3e2511ea4b7.png"
+      alt="Celulares no boleto em até 6x"
+      style="display:none;width:100%;height:auto;"
+    >
+
+    <!-- BANNER 3 - ENVIAMOS PARA TODO O BRASIL -->
     <img
       class="alpha-banner-slide"
       src="alpha_cell_envio_banner_site.png"
@@ -85,27 +95,31 @@ footer{margin-top:40px;padding:24px 0;border-top:1px solid #292929;color:#999;fo
     >
 
   </div>
-  
-<script>
-(function() {
-  const slides = document.querySelectorAll(
-    "#alphaBannerCarousel .alpha-banner-slide"
-  );
 
-  if (slides.length < 2) return;
+  <script>
+  (function() {
 
-  let atual = 0;
+    const slides = document.querySelectorAll(
+      "#alphaBannerCarousel .alpha-banner-slide"
+    );
 
-  setInterval(function() {
-    slides[atual].style.display = "none";
+    if (slides.length < 2) return;
 
-    atual = (atual + 1) % slides.length;
+    let atual = 0;
 
-    slides[atual].style.display = "block";
-  }, 5000);
-})();
-</script>
-  
+    setInterval(function() {
+
+      slides[atual].style.display = "none";
+
+      atual = (atual + 1) % slides.length;
+
+      slides[atual].style.display = "block";
+
+    }, 5000);
+
+  })();
+  </script>
+
 </section>
 <main class="wrap">
   <div class="quick-actions">
